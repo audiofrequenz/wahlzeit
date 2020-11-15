@@ -61,7 +61,8 @@ public class Photo extends DataObject {
 	 * 
 	 */
 	protected PhotoId id = null;
-	
+
+	protected Location location = null;
 	/**
 	 * 
 	 */
@@ -109,6 +110,12 @@ public class Photo extends DataObject {
 	 */
 	public Photo() {
 		id = PhotoId.getNextId();
+		location = new Location(new Coordinate(
+				Math.random()*10,
+				Math.random()*10,
+				Math.random()*10,
+				CoordinateType.CARTESIAN)
+		);
 		incWriteCount();
 	}
 	
@@ -118,7 +125,12 @@ public class Photo extends DataObject {
 	 */
 	public Photo(PhotoId myId) {
 		id = myId;
-		
+		location = new Location(new Coordinate(
+				Math.random()*10,
+				Math.random()*10,
+				Math.random()*10,
+				CoordinateType.CARTESIAN)
+		);
 		incWriteCount();
 	}
 	
@@ -164,6 +176,14 @@ public class Photo extends DataObject {
 		creationTime = rset.getLong("creation_time");
 
 		maxPhotoSize = PhotoSize.getFromWidthHeight(width, height);
+		location = new Location(
+				new Coordinate(
+						rset.getDouble("cartesian_x"),
+						rset.getDouble("cartesian_y"),
+						rset.getDouble("cartesian_z"),
+						CoordinateType.getFromInt(rset.getInt("coordinate_type"))
+				)
+		);
 	}
 	
 	/**
@@ -183,7 +203,13 @@ public class Photo extends DataObject {
 		rset.updateInt("status", status.asInt());
 		rset.updateInt("praise_sum", praiseSum);
 		rset.updateInt("no_votes", noVotes);
-		rset.updateLong("creation_time", creationTime);		
+		rset.updateLong("creation_time", creationTime);
+		if(location != null){
+			rset.updateInt("coordinate_type", location.coordinate.getType().asInt());
+			rset.updateDouble("cartesian_x", location.coordinate.getX());
+			rset.updateDouble("cartesian_y", location.coordinate.getY());
+			rset.updateDouble("cartesian_z", location.coordinate.getZ());
+		}
 	}
 
 	/**
