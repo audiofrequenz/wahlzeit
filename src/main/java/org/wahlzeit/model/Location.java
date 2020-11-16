@@ -1,6 +1,9 @@
 package org.wahlzeit.model;
 
-public class Location {
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class Location{
     protected Coordinate coordinate;
 
     /**
@@ -11,4 +14,10 @@ public class Location {
     public Location(Coordinate coordinate){
         this.coordinate = coordinate;
     }
+
+    public void writeOn(ResultSet rset) throws SQLException {
+        this.coordinate.writeOn(rset);
+
+    }
+
 }

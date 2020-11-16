@@ -1,14 +1,8 @@
 package org.wahlzeit.model;
 
-import org.wahlzeit.services.DataObject;
-import org.wahlzeit.services.EmailAddress;
-import org.wahlzeit.services.Language;
-import org.wahlzeit.utils.StringUtil;
-
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Objects;
 
 public class Coordinate {
     private double x;
@@ -58,6 +52,11 @@ public class Coordinate {
         return isEqual(other);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y, z, type);
+    }
+
     /**
      * checks whether the x, y and z coordinates of a given object is equal to the current object
      * @param other type Coordinate
@@ -65,7 +64,18 @@ public class Coordinate {
      * @methodtype comparison
      */
     public boolean isEqual(Coordinate other){
-        return other.x == this.x && other.y == this.y && other.z == this.z && other.type == this.type;
+        double tolerance = 0.001;
+        boolean x_equals = Math.abs(other.x-this.x)<=tolerance;
+        boolean y_equals = Math.abs(other.y-this.y)<=tolerance;
+        boolean z_equals = Math.abs(other.z-this.z)<=tolerance;
+        return x_equals && y_equals && z_equals && other.type == this.type;
+    }
+
+    public void writeOn(ResultSet rset) throws SQLException {
+        rset.updateDouble("cartesian_x", this.x);
+        rset.updateDouble("cartesian_y", this.y);
+        rset.updateDouble("cartesian_z", this.z);
+        rset.updateInt("coordinate_type", this.type.asInt());
     }
 
     /**
