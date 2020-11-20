@@ -36,7 +36,7 @@ public class PhotoManager extends ObjectManager {
 	 * 
 	 */
 	protected static final PhotoManager instance = new PhotoManager();
-
+	//protected static final PhotoManager instance = new RodentPhotoManager();
 	/**
 	 * In-memory cache for photos
 	 */
@@ -135,6 +135,7 @@ public class PhotoManager extends ObjectManager {
 	 */
 	protected Photo createObject(ResultSet rset) throws SQLException {
 		return PhotoFactory.getInstance().createPhoto(rset);
+		//return RodentPhotoFactory.getInstance().createRodentPhoto(rset);
 	}
 	
 	/**

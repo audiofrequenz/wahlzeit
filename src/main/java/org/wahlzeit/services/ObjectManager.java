@@ -39,7 +39,7 @@ public abstract class ObjectManager {
 	}
 	
 	/**
-	 * 
+	 * all for id = value
 	 */
 	protected Persistent readObject(PreparedStatement stmt, int value) throws SQLException {
 		Persistent result = null;
@@ -54,7 +54,7 @@ public abstract class ObjectManager {
 	}
 	
 	/**
-	 * 
+	 * all for username = value
 	 */
 	protected Persistent readObject(PreparedStatement stmt, String value) throws SQLException {
 		Persistent result = null;

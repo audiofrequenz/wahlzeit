@@ -47,6 +47,7 @@ public abstract class ModelMain extends AbstractMain {
  		loadGlobals();
 
 		PhotoFactory.initialize();
+		RodentPhotoFactory.initialize();
 	}
 	
 	/**
