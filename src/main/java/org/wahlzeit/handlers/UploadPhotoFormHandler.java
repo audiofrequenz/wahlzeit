@@ -62,23 +62,26 @@ public class UploadPhotoFormHandler extends AbstractWebFormHandler {
 		}
 
 		try {
-			PhotoManager pm = PhotoManager.getInstance();
+			RodentPhotoManager rpm = RodentPhotoManager.getInstance();
+			// PhotoManager pm = PhotoManager.getInstance();
 			String sourceFileName = us.getAsString(args, "fileName");
 			File file = new File(sourceFileName);
-			Photo photo = pm.createPhoto(file);
+			// Photo photo = pm.createPhoto(file);
+			RodentPhoto rodentPhoto = rpm.createPhoto(file);
 
-			String targetFileName = SysConfig.getBackupDir().asString() + photo.getId().asString();
+			// String targetFileName = SysConfig.getBackupDir().asString() + photo.getId().asString();
+			String targetFileName = SysConfig.getBackupDir().asString() + rodentPhoto.getId().asString();
 			createBackup(sourceFileName, targetFileName);
 		
 			User user = (User) us.getClient();
-			user.addPhoto(photo); 
+			user.addPhoto(rodentPhoto); 
 			
-			photo.setTags(new Tags(tags));
+			rodentPhoto.setTags(new Tags(tags));
 
-			pm.savePhoto(photo);
+			rpm.savePhoto(rodentPhoto);
 
 			StringBuffer sb = UserLog.createActionEntry("UploadPhoto");
-			UserLog.addCreatedObject(sb, "Photo", photo.getId().asString());
+			UserLog.addCreatedObject(sb, "Photo", rodentPhoto.getId().asString());
 			UserLog.log(sb);
 			
 			us.setTwoLineMessage(us.cfg().getPhotoUploadSucceeded(), us.cfg().getKeepGoing());

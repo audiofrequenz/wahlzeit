@@ -8,7 +8,8 @@ import java.sql.SQLException;
 public class RodentPhotoFactory extends PhotoFactory {
 
     public RodentPhotoFactory(){
-        super();
+        //super();
+        // do nothing
     }
     /**
      * Hidden singleton instance; needs to be initialized from the outside.

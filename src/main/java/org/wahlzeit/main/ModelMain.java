@@ -93,7 +93,8 @@ public abstract class ModelMain extends AbstractMain {
 		User user = new User(userName, password, emailAddress, confirmationCode);
 		userManager.addUser(user);
 		
-		PhotoManager photoManager = PhotoManager.getInstance();
+		RodentPhotoManager rodentPhotoManager = RodentPhotoManager.getInstance();
+		//PhotoManager photoManager = PhotoManager.getInstance();
 		File photoDirFile = new File(photoDir);
 		FileFilter photoFileFilter = new FileFilter() {
 			public boolean accept(File file) {
@@ -103,8 +104,9 @@ public abstract class ModelMain extends AbstractMain {
 
 		File[] photoFiles = photoDirFile.listFiles(photoFileFilter);
 		for (int i = 0; i < photoFiles.length; i++) {
-			Photo newPhoto = photoManager.createPhoto(photoFiles[i]);
-			user.addPhoto(newPhoto);
+			RodentPhoto newRodentPhoto = rodentPhotoManager.createPhoto(photoFiles[i]);
+			//RodentPhoto newRodentPhoto = rodentPhotoManager.createPhoto(photoFiles[i]);
+			user.addPhoto(newRodentPhoto);
 		}
 	}
 

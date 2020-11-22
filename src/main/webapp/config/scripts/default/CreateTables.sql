@@ -33,7 +33,10 @@ CREATE TABLE photos (
 	coordinate_type integer,
 	cartesian_x double precision,
 	cartesian_y double precision,
-	cartesian_z double precision
+	cartesian_z double precision,
+    rodentType text,
+	family text,
+	averageWeight integer
 );
 
 CREATE TABLE tags (

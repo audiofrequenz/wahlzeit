@@ -35,8 +35,8 @@ public class PhotoManager extends ObjectManager {
 	/**
 	 * 
 	 */
-	protected static final PhotoManager instance = new PhotoManager();
-	//protected static final PhotoManager instance = new RodentPhotoManager();
+	//protected static final PhotoManager instance = new PhotoManager();
+	protected static final RodentPhotoManager instance = new RodentPhotoManager();
 	/**
 	 * In-memory cache for photos
 	 */
@@ -50,7 +50,7 @@ public class PhotoManager extends ObjectManager {
 	/**
 	 * 
 	 */
-	public static final PhotoManager getInstance() {
+	public static PhotoManager getInstance() {
 		return instance;
 	}
 	
@@ -110,7 +110,7 @@ public class PhotoManager extends ObjectManager {
 		if (result == null) {
 			try {
 				PreparedStatement stmt = getReadingStatement("SELECT * FROM photos WHERE id = ?");
-				result = (Photo) readObject(stmt, id.asInt());
+				result = (RodentPhoto) readObject(stmt, id.asInt());
 			} catch (SQLException sex) {
 				SysLog.logThrowable(sex);
 			}
@@ -134,8 +134,8 @@ public class PhotoManager extends ObjectManager {
 	 * 
 	 */
 	protected Photo createObject(ResultSet rset) throws SQLException {
-		return PhotoFactory.getInstance().createPhoto(rset);
-		//return RodentPhotoFactory.getInstance().createRodentPhoto(rset);
+		//return PhotoFactory.getInstance().createPhoto(rset);
+		return RodentPhotoFactory.getInstance().createRodentPhoto(rset);
 	}
 	
 	/**

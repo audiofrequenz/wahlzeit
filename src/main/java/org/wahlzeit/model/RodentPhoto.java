@@ -1,9 +1,5 @@
 package org.wahlzeit.model;
 
-import org.wahlzeit.services.EmailAddress;
-import org.wahlzeit.services.Language;
-import org.wahlzeit.utils.StringUtil;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -29,12 +25,19 @@ public class RodentPhoto extends Photo{
     }
 
     public void readFrom(ResultSet rset) throws SQLException {
-        super.readFrom(rset);
         this.rodent = new Rodent(
                 rset.getString("rodentType"),
                 rset.getString("family"),
                 rset.getInt("averageWeight")
         );
+        super.readFrom(rset);
+    }
+
+    public void writeOn(ResultSet rset) throws SQLException {
+        rset.updateString("rodentType", "best one");
+        rset.updateString("family", "Capybara");
+        rset.updateInt("averageWeight", 60);
+        super.writeOn(rset);
     }
 
     public Rodent getRodent() {
