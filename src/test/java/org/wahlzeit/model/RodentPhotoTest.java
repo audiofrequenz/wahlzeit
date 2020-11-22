@@ -1,37 +1,23 @@
 package org.wahlzeit.model;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.junit.Before;
 import org.junit.Test;
 
 /**
  * Test cases for the Photo class.
  */
-public class PhotoTest {
+public class RodentPhotoTest {
+    ResultSet mockedResultSet = null;
 
-    @Test
-    public void photoByDefaultConstructorIsInstantiatedCorrectly() {
-        Photo testPhoto = new Photo();
-        assertNotNull(testPhoto.location);
-        assertNotNull(testPhoto.location.coordinate);
-    }
-
-    @Test
-    public void photoByIdIsInstantiatedCorrectly() {
-        PhotoId mockedPhotoId = mock(PhotoId.class);
-        Photo testPhoto = new Photo(mockedPhotoId);
-        assertNotNull(testPhoto.location);
-        assertNotNull(testPhoto.location.coordinate);
-    }
-
-    @Test
-    public void photoByRestulSetIsInstantiatedCorrectly() throws SQLException {
-        ResultSet mockedResultSet = mock(ResultSet.class);
+    @Before
+    public void setUp() throws SQLException{
+        this.mockedResultSet = mock(ResultSet.class);
         when(mockedResultSet.getInt("id")).thenReturn(256);
         when(mockedResultSet.getString("owner_name")).thenReturn("Capy Bara");
         when(mockedResultSet.getBoolean("owner_notify_about_praise")).thenReturn(true);
@@ -53,8 +39,28 @@ public class PhotoTest {
         when(mockedResultSet.getString("family")).thenReturn("Capybara");
         when(mockedResultSet.getInt("averageweight")).thenReturn(60);
         when(mockedResultSet.next()).thenReturn(true).thenReturn(false);
+    }
 
-        Photo testPhoto = new Photo(mockedResultSet);
+    @Test
+    public void rodentPhotoByDefaultConstructorIsInstantiatedCorrectly() {
+        RodentPhoto testPhoto = new RodentPhoto();
+        assertNotNull(testPhoto);
+    }
+
+    @Test
+    public void rodentPhotoByResultSetConstructorIsInstantiatedCorrectly() throws SQLException{
+        RodentPhoto testPhoto = new RodentPhoto(this.mockedResultSet);
+        Rodent rodent = testPhoto.getRodent();
+        assertNotNull(rodent);
+        assertEquals(60, rodent.averageWeight);
+        assertEquals("Capybara", rodent.rodentType);
+        assertEquals("Capybara", rodent.family);
+    }
+
+    @Test
+    public void rodentPhotoByIdIsInstantiatedCorrectly(){
+        PhotoId mockedPhotoId = mock(PhotoId.class);
+        RodentPhoto testPhoto = new RodentPhoto(mockedPhotoId);
         assertNotNull(testPhoto.location);
         assertNotNull(testPhoto.location.coordinate);
     }

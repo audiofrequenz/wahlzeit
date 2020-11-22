@@ -14,11 +14,6 @@ public class RodentPhoto extends Photo{
         super(id);
     }
 
-    public RodentPhoto(Rodent rodent){
-        super();
-        this.rodent = rodent;
-    }
-
     public RodentPhoto(ResultSet rset) throws SQLException {
         super(rset);
         readFrom(rset);
@@ -26,17 +21,17 @@ public class RodentPhoto extends Photo{
 
     public void readFrom(ResultSet rset) throws SQLException {
         this.rodent = new Rodent(
-                rset.getString("rodentType"),
+                rset.getString("rodenttype"),
                 rset.getString("family"),
-                rset.getInt("averageWeight")
+                rset.getInt("averageweight")
         );
         super.readFrom(rset);
     }
 
     public void writeOn(ResultSet rset) throws SQLException {
-        rset.updateString("rodentType", "best one");
+        rset.updateString("rodenttype", "best one");
         rset.updateString("family", "Capybara");
-        rset.updateInt("averageWeight", 60);
+        rset.updateInt("averageweight", 60);
         super.writeOn(rset);
     }
 
