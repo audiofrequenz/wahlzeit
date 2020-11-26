@@ -110,11 +110,10 @@ public class Photo extends DataObject {
 	 */
 	public Photo() {
 		id = PhotoId.getNextId();
-		location = new Location(new Coordinate(
+		location = new Location(new CartesianCoordinate(
 				Math.random()*10,
 				Math.random()*10,
-				Math.random()*10,
-				CoordinateType.CARTESIAN)
+				Math.random()*10)
 		);
 		incWriteCount();
 	}
@@ -125,11 +124,10 @@ public class Photo extends DataObject {
 	 */
 	public Photo(PhotoId myId) {
 		id = myId;
-		location = new Location(new Coordinate(
+		location = new Location(new CartesianCoordinate(
 				Math.random()*10,
 				Math.random()*10,
-				Math.random()*10,
-				CoordinateType.CARTESIAN)
+				Math.random()*10)
 		);
 		incWriteCount();
 	}
@@ -177,11 +175,10 @@ public class Photo extends DataObject {
 
 		maxPhotoSize = PhotoSize.getFromWidthHeight(width, height);
 		location = new Location(
-				new Coordinate(
+				new CartesianCoordinate(
 						rset.getDouble("cartesian_x"),
 						rset.getDouble("cartesian_y"),
-						rset.getDouble("cartesian_z"),
-						CoordinateType.getFromInt(rset.getInt("coordinate_type"))
+						rset.getDouble("cartesian_z")
 				)
 		);
 	}

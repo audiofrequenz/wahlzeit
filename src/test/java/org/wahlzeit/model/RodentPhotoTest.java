@@ -62,6 +62,6 @@ public class RodentPhotoTest {
         PhotoId mockedPhotoId = mock(PhotoId.class);
         RodentPhoto testPhoto = new RodentPhoto(mockedPhotoId);
         assertNotNull(testPhoto.location);
-        assertNotNull(testPhoto.location.coordinate);
+        assertNotNull(testPhoto.location.cartesianCoordinate);
     }
 }

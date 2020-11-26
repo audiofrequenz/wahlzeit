@@ -9,38 +9,37 @@ import static org.junit.Assert.assertEquals;
 /**
  * Test cases for the Coordinate class.
  */
-public class CoordinateTest {
+public class CartesianCoordinateTest {
 
-    Coordinate coordinate1 = null;
-    Coordinate coordinate2 = null;
-    Coordinate coordinate3 = null;
-    Coordinate coordinate4 = null;
-    Coordinate coordinate5 = null;
-    Coordinate coordinate6 = null;
+    CartesianCoordinate coordinate1 = null;
+    CartesianCoordinate coordinate2 = null;
+    CartesianCoordinate coordinate3 = null;
+    CartesianCoordinate coordinate4 = null;
+    CartesianCoordinate coordinate5 = null;
+    CartesianCoordinate coordinate6 = null;
     Location location1 = null;
 
     @Before
 	public void setUp() {
-        coordinate1 = new Coordinate(0.0, 2.0, 0.0, CoordinateType.CARTESIAN);
-        coordinate2 = new Coordinate(0.0, 4.0, 0.0, CoordinateType.CARTESIAN);
+        coordinate1 = new CartesianCoordinate(0.0, 2.0, 0.0);
+        coordinate2 = new CartesianCoordinate(0.0, 4.0, 0.0);
 
-        coordinate3 = new Coordinate(-2.0, 1.0, 4.0, CoordinateType.CARTESIAN);
-        coordinate4 = new Coordinate(-4.0, 3.0, 6.0, CoordinateType.CARTESIAN);
+        coordinate3 = new CartesianCoordinate(-2.0, 1.0, 4.0);
+        coordinate4 = new CartesianCoordinate(-4.0, 3.0, 6.0);
 
-        coordinate5 = new Coordinate(0.0, 2.0, 0.0, CoordinateType.UNDEFINED); // identical to coordinate1
-        coordinate6 = new Coordinate(0.0, 2.0, 0.0, CoordinateType.CARTESIAN); // coordinates identical to coordinate1 but type mismatching
+        coordinate5 = new CartesianCoordinate(0.0, 2.0, 0.0); // identical to coordinate1
+        coordinate6 = new CartesianCoordinate(0.0, 2.0, 0.0); // coordinates identical to coordinate1 but type mismatching
 
         location1 = new Location(coordinate1);
     }
 
     @Test
 	public void coordinateIsInstantiatedCorrectly() {
-        Coordinate coordinate7 = new Coordinate(6.0, 7.0, 8.0, CoordinateType.CARTESIAN);
+        CartesianCoordinate coordinate7 = new CartesianCoordinate(6.0, 7.0, 8.0);
         assertTrue(coordinate7 != null);
         assertEquals(coordinate7.getX(), 6.0, 0.0);
         assertEquals(coordinate7.getY(), 7.0, 0.0);
         assertEquals(coordinate7.getZ(), 8.0, 0.0);
-        assertEquals(coordinate7.getType(), CoordinateType.CARTESIAN);
     }
 
 	/**

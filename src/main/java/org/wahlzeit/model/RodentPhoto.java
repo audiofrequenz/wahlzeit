@@ -2,6 +2,7 @@ package org.wahlzeit.model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class RodentPhoto extends Photo{
     private Rodent rodent;
@@ -75,5 +76,30 @@ public class RodentPhoto extends Photo{
      */
     public void setRodent(Rodent rodent) {
         this.rodent = rodent;
+    }
+
+    public boolean isEqual(RodentPhoto other) {
+        return other.rodent.equals(this.rodent);
+    }
+
+    /**
+     * Override for equals to check if given object equals current object
+     * @param obj type Object
+     * @return true if object equals current instance
+     * @methodtype comparison
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (!(obj instanceof RodentPhoto)) return false;
+
+        RodentPhoto other = (RodentPhoto) obj;
+        return isEqual(other);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.rodent);
     }
 }

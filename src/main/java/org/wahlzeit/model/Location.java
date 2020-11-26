@@ -4,19 +4,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Location{
-    protected Coordinate coordinate;
+    protected CartesianCoordinate cartesianCoordinate;
 
     /**
      * Location constructor implements a new object with given features
-     * @param coordinate type Coordinate
+     * @param cartesianCoordinate type Coordinate
      * @methodtype initialization
      */
-    public Location(Coordinate coordinate){
-        this.coordinate = coordinate;
+    public Location(CartesianCoordinate cartesianCoordinate){
+        this.cartesianCoordinate = cartesianCoordinate;
     }
 
     public void writeOn(ResultSet rset) throws SQLException {
-        this.coordinate.writeOn(rset);
+        this.cartesianCoordinate.writeOn(rset);
 
     }
 
