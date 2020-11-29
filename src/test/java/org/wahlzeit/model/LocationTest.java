@@ -20,13 +20,14 @@ public class LocationTest {
         when(mockedCoordinate.getX()).thenReturn(0.0);
         when(mockedCoordinate.getY()).thenReturn(2.0);
         when(mockedCoordinate.getZ()).thenReturn(0.0);
-        when(mockedCoordinate.getType()).thenReturn(CoordinateType.CARTESIAN);
         Location location1 = new Location(mockedCoordinate);
+        assertEquals(location1.cartesianCoordinate, mockedCoordinate);
+
         
         // version without mock 
-        // Coordinate coordinate1 = new Coordinate(0.0, 2.0, 0.0, CoordinateType.CARTESIAN);
+        // CartesianCoordinate coordinate1 = new CartesianCoordinate(0.0, 2.0, 0.0);
         // Location location1 = new Location(coordinate1);
-        assertTrue(location1 != null);
-        assertEquals(location1.cartesianCoordinate, mockedCoordinate);
+        // assertTrue(location1 != null);
+        // assertEquals(location1.cartesianCoordinate, coordinate1);
     }
 }

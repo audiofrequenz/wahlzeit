@@ -28,18 +28,17 @@ public class CartesianCoordinateTest {
         coordinate4 = new CartesianCoordinate(-4.0, 3.0, 6.0);
 
         coordinate5 = new CartesianCoordinate(0.0, 2.0, 0.0); // identical to coordinate1
-        coordinate6 = new CartesianCoordinate(0.0, 2.0, 0.0); // coordinates identical to coordinate1 but type mismatching
 
         location1 = new Location(coordinate1);
     }
 
     @Test
 	public void coordinateIsInstantiatedCorrectly() {
-        CartesianCoordinate coordinate7 = new CartesianCoordinate(6.0, 7.0, 8.0);
-        assertTrue(coordinate7 != null);
-        assertEquals(coordinate7.getX(), 6.0, 0.0);
-        assertEquals(coordinate7.getY(), 7.0, 0.0);
-        assertEquals(coordinate7.getZ(), 8.0, 0.0);
+        CartesianCoordinate coordinate6 = new CartesianCoordinate(6.0, 7.0, 8.0);
+        assertTrue(coordinate6 != null);
+        assertEquals(coordinate6.getX(), 6.0, 0.0);
+        assertEquals(coordinate6.getY(), 7.0, 0.0);
+        assertEquals(coordinate6.getZ(), 8.0, 0.0);
     }
 
 	/**
@@ -54,13 +53,8 @@ public class CartesianCoordinateTest {
     
     @Test
     public void equalsReturnsTrueIfIdenticalCoordinatesAreCompared() {
-        assertTrue(coordinate1.equals(coordinate1));
-        assertTrue(coordinate1.equals(coordinate6));
-    }
-    
-    @Test
-    public void equalsReturnsFalseIfCoordinateTypesAreNotMatching() {
-        assertFalse(coordinate1.equals(coordinate5));
+        assertTrue(coordinate1.equals(coordinate1)); // same instance
+        assertTrue(coordinate1.equals(coordinate5)); // different instances, but same coordinates
     }
 
     @Test
