@@ -29,7 +29,7 @@ public class CartesianCoordinateTest {
 
         coordinate5 = new CartesianCoordinate(0.0, 2.0, 0.0); // identical to coordinate1
 
-        location1 = new Location(coordinate1);
+        //location1 = new Location(coordinate1);
     }
 
     @Test

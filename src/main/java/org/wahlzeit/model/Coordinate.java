@@ -1,9 +1,15 @@
 package org.wahlzeit.model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public interface Coordinate {
-    public CartesianCoordinate asCartesianCoordinate();
-    public double getCartesianDistance(Coordinate coordinate);
-    public SphericCoordinate asSphericCoordinate();
-    public double getCentralAngle(Coordinate coordinate);
-    public boolean isEqual(Coordinate coordinate);
+    CartesianCoordinate asCartesianCoordinate();
+    double getCartesianDistance(Coordinate coordinate);
+    SphericCoordinate asSphericCoordinate();
+    double getCentralAngle(Coordinate coordinate);
+    boolean isEqual(Coordinate coordinate);
+    int hashCode();
+    boolean equals(Object obj);
+    void writeOn(ResultSet rset) throws SQLException;
 }

@@ -69,9 +69,9 @@ public class CartesianCoordinate implements Coordinate{
     }
 
     public void writeOn(ResultSet rset) throws SQLException {
-        rset.updateDouble("cartesian_x", this.x);
-        rset.updateDouble("cartesian_y", this.y);
-        rset.updateDouble("cartesian_z", this.z);
+        rset.updateDouble("coordinate_unit_1", this.x);
+        rset.updateDouble("coordinate_unit_2", this.y);
+        rset.updateDouble("coordinate_unit_3", this.z);
     }
 
     /**

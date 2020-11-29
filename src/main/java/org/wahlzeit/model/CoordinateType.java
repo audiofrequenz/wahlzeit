@@ -22,22 +22,22 @@ package org.wahlzeit.model;
 
 import org.wahlzeit.utils.EnumValue;
 
+import java.util.Random;
+
 /**
  * The gender denotes some user's/person's/character's/whatever gender. The undefined value denotes that no value was
  * provided or the entity is not human.
  */
 public enum CoordinateType implements EnumValue {
 
-	/**
-	 * UNDEFINED = user never entered anything
-	 */
-	UNDEFINED(0), CARTESIAN(1), ;
+
+	CARTESIAN(0), SPHERIC(1);
 
 	/**
 	 *
 	 */
 	private static CoordinateType[] allValues = {
-		UNDEFINED, CARTESIAN
+		CARTESIAN, SPHERIC
 	};
 
 	/**
@@ -61,7 +61,7 @@ public enum CoordinateType implements EnumValue {
 	 *
 	 */
 	private static final String[] valueNames = {
-		"undefined", "cartesian"
+		"cartesian", "spheric"
 	};
 
 	/**
@@ -75,6 +75,11 @@ public enum CoordinateType implements EnumValue {
 		}
 
 		throw new IllegalArgumentException("invalid Coordinatetype string: " + coordType);
+	}
+
+	public static CoordinateType getRandomCoordinateType() {
+		Random random = new Random();
+		return values()[random.nextInt(values().length)];
 	}
 
 	/**
@@ -116,19 +121,19 @@ public enum CoordinateType implements EnumValue {
 	public String getTypeName() {
 		return "CoordinateType";
 	}
-		
-	/**
-	 * 
-	 */
-	public boolean isUndefined() {
-		return (this == UNDEFINED);
-	}
-	
+
 	/**
 	 * 
 	 */
 	public boolean isCartesian() {
 		return (this == CARTESIAN);
+	}
+
+	/**
+	 *
+	 */
+	public boolean isSpheric() {
+		return (this == SPHERIC);
 	}
 
 

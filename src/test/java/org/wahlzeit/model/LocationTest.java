@@ -20,8 +20,8 @@ public class LocationTest {
         when(mockedCoordinate.getX()).thenReturn(0.0);
         when(mockedCoordinate.getY()).thenReturn(2.0);
         when(mockedCoordinate.getZ()).thenReturn(0.0);
-        Location location1 = new Location(mockedCoordinate);
-        assertEquals(location1.cartesianCoordinate, mockedCoordinate);
+        //Location location1 = new Location(mockedCoordinate);
+        //assertEquals(location1.cartesianCoordinate, mockedCoordinate);
 
         
         // version without mock 

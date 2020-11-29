@@ -56,7 +56,7 @@ public class RodentPhoto extends Photo{
     public void writeOn(ResultSet rset) throws SQLException {
         rset.updateString("rodenttype", "best one");
         rset.updateString("family", "Capybara");
-        rset.updateInt("averageweight", 60);
+        rset.updateInt("averageweight", (int)(Math.random()*100));
         super.writeOn(rset);
     }
 
@@ -78,28 +78,4 @@ public class RodentPhoto extends Photo{
         this.rodent = rodent;
     }
 
-    public boolean isEqual(RodentPhoto other) {
-        return other.rodent.equals(this.rodent);
-    }
-
-    /**
-     * Override for equals to check if given object equals current object
-     * @param obj type Object
-     * @return true if object equals current instance
-     * @methodtype comparison
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (!(obj instanceof RodentPhoto)) return false;
-
-        RodentPhoto other = (RodentPhoto) obj;
-        return isEqual(other);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(this.rodent);
-    }
 }

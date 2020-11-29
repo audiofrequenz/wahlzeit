@@ -31,9 +31,9 @@ CREATE TABLE photos (
 	no_votes integer,
 	creation_time bigint,
 	coordinate_type integer,
-	cartesian_x double precision,
-	cartesian_y double precision,
-	cartesian_z double precision,
+	coordinate_unit_1 double precision,
+	coordinate_unit_2 double precision,
+	coordinate_unit_3 double precision,
     rodentType text,
 	family text,
 	averageWeight integer

@@ -1,5 +1,7 @@
 package org.wahlzeit.model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class SphericCoordinate implements Coordinate{
@@ -64,6 +66,12 @@ public class SphericCoordinate implements Coordinate{
                 Math.sin(Math.toRadians(sphericCoordinate.getPhi())) +
                 Math.cos(Math.toRadians(this.phi)) * Math.cos(Math.toRadians(sphericCoordinate.getPhi())) *
                 Math.cos(Math.toRadians(sphericCoordinate.getTheta() - this.theta))));
+    }
+
+    public void writeOn(ResultSet rset) throws SQLException {
+        rset.updateDouble("coordinate_unit_1", this.phi);
+        rset.updateDouble("coordinate_unit_2", this.theta);
+        rset.updateDouble("coordinate_unit_3", this.radius);
     }
 
     @Override

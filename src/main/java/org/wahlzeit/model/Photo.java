@@ -110,11 +110,7 @@ public class Photo extends DataObject {
 	 */
 	public Photo() {
 		id = PhotoId.getNextId();
-		location = new Location(new CartesianCoordinate(
-				Math.random()*10,
-				Math.random()*10,
-				Math.random()*10)
-		);
+		location = randomizerLocation();
 		incWriteCount();
 	}
 	
@@ -124,12 +120,19 @@ public class Photo extends DataObject {
 	 */
 	public Photo(PhotoId myId) {
 		id = myId;
-		location = new Location(new CartesianCoordinate(
-				Math.random()*10,
-				Math.random()*10,
-				Math.random()*10)
-		);
+		location = randomizerLocation();
 		incWriteCount();
+	}
+
+	private Location randomizerLocation(){
+		CoordinateType randomType = CoordinateType.getRandomCoordinateType();
+		Coordinate coordinate;
+		if (randomType.isSpheric()){
+			coordinate = new SphericCoordinate(Math.random()*100,Math.random()*100,Math.random()*100);
+		} else{
+			coordinate = new CartesianCoordinate(Math.random()*100,Math.random()*100,Math.random()*100);
+		}
+		return new Location(randomType, coordinate);
 	}
 	
 	/**
@@ -174,13 +177,27 @@ public class Photo extends DataObject {
 		creationTime = rset.getLong("creation_time");
 
 		maxPhotoSize = PhotoSize.getFromWidthHeight(width, height);
+		CoordinateType coordinate_type = CoordinateType.getFromInt(rset.getInt("coordinate_type"));
+		Coordinate coordinate;
+		if(coordinate_type.isCartesian()) {
+			coordinate = new CartesianCoordinate(
+				rset.getDouble("coordinate_unit_1"),
+				rset.getDouble("coordinate_unit_2"),
+				rset.getDouble("coordinate_unit_3")
+			);
+		}
+		else{
+			coordinate = new SphericCoordinate(
+				rset.getDouble("coordinate_unit_1"),
+				rset.getDouble("coordinate_unit_2"),
+				rset.getDouble("coordinate_unit_3")
+			);
+		}
 		location = new Location(
-				new CartesianCoordinate(
-						rset.getDouble("cartesian_x"),
-						rset.getDouble("cartesian_y"),
-						rset.getDouble("cartesian_z")
-				)
+			coordinate_type,
+			coordinate
 		);
+
 	}
 	
 	/**
