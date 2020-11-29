@@ -141,8 +141,8 @@ public class CartesianCoordinate implements Coordinate{
     @Override
     public SphericCoordinate asSphericCoordinate() {
         double radius = Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2) + Math.pow(this.z, 2));
-        double theta = Math.acos(this.z / radius);
-        double phi = Math.atan2(this.y, this.x);
+        double theta = this.x == 0 ? 0 : Math.atan(this.y/this.x);
+        double phi = Math.atan(Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2))/this.z);
         return new SphericCoordinate(phi, theta, radius);
     }
 
