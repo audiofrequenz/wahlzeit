@@ -118,10 +118,12 @@ public class SphericCoordinate implements Coordinate{
     public double getCentralAngle(Coordinate coordinate) {
         SphericCoordinate sphericCoordinate = coordinate.asSphericCoordinate();
         //Formula for central Angle = arccos(sin(phi1)*sin(phi2)+cos(phi1)*cos(phi2)*cos())
-        return Math.toDegrees(Math.acos(Math.sin(Math.toRadians(this.phi)) *
-                Math.sin(Math.toRadians(sphericCoordinate.getPhi())) +
-                Math.cos(Math.toRadians(this.phi)) * Math.cos(Math.toRadians(sphericCoordinate.getPhi())) *
-                Math.cos(Math.toRadians(sphericCoordinate.getTheta() - this.theta))));
+        double result = 
+            Math.toDegrees(Math.acos(Math.sin(this.phi) *
+            Math.sin(sphericCoordinate.getPhi()) +
+            Math.cos(this.phi) * Math.cos(sphericCoordinate.getPhi()) *
+            Math.cos(sphericCoordinate.getTheta() - this.theta)));
+        return result;
     }
 
     /**
