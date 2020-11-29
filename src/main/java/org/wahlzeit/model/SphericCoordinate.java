@@ -7,39 +7,80 @@ import java.util.Objects;
 public class SphericCoordinate implements Coordinate{
     private double phi;
     private double theta;
-
-    public double getPhi() {
-        return phi;
-    }
-
-    public void setPhi(double phi) {
-        this.phi = phi;
-    }
-
-    public double getTheta() {
-        return theta;
-    }
-
-    public void setTheta(double theta) {
-        this.theta = theta;
-    }
-
-    public double getRadius() {
-        return radius;
-    }
-
-    public void setRadius(double radius) {
-        this.radius = radius;
-    }
-
     private double radius;
 
+    /**
+     * Coordinate constructor implements a new object with given features
+     * @param phi phi-value of Coordinate
+     * @param theta theta-value of Coordinate
+     * @param radius radius-value of Coordinate
+     * @methodtype initialization
+     */
     public SphericCoordinate(double phi, double theta, double radius) {
         this.phi = phi;
         this.theta = theta;
         this.radius = radius;
     }
 
+    /**
+     * Getter for phi value
+     * @return phi
+     * @methodtype get
+     */
+    public double getPhi() {
+        return phi;
+    }
+
+    /**
+     * Setter for phi value
+     * @param phi value of the phi-coordinate in an cartesian coordinate system
+     * @methodtype set
+     */
+    public void setPhi(double phi) {
+        this.phi = phi;
+    }
+
+    /**
+     * Getter for theta value
+     * @return theta
+     * @methodtype get
+     */
+    public double getTheta() {
+        return theta;
+    }
+
+    /**
+     * Setter for theta value
+     * @param theta value of the theta-coordinate in an cartesian coordinate system
+     * @methodtype set
+     */
+    public void setTheta(double theta) {
+        this.theta = theta;
+    }
+
+    /**
+     * Getter for radius value
+     * @return radius
+     * @methodtype get
+     */
+    public double getRadius() {
+        return radius;
+    }
+
+    /**
+     * Setter for radius value
+     * @param radius value of the x-coordinate in an cartesian coordinate system
+     * @methodtype set
+     */
+    public void setRadius(double radius) {
+        this.radius = radius;
+    }
+
+    /**
+     * returns coordinate as cartesian coordinate
+     * @return cartesian coordinate
+     * @methodtype conversion
+     */
     @Override
     public CartesianCoordinate asCartesianCoordinate() {
         double x = this.radius * Math.sin(this.phi)*Math.cos(this.theta);
@@ -48,16 +89,31 @@ public class SphericCoordinate implements Coordinate{
         return new CartesianCoordinate(x,y,z);
     }
 
+    /**
+     * returns the distance between two coordinates
+     * @return distance as double
+     * @methodtype get
+     */
     @Override
     public double getCartesianDistance(Coordinate coordinate) {
         return this.asCartesianCoordinate().getCartesianDistance(coordinate);
     }
 
+    /**
+     * returns coordinate as spheric coordinate
+     * @return this object
+     * @methodtype get
+     */
     @Override
     public SphericCoordinate asSphericCoordinate() {
         return this;
     }
 
+    /**
+     * returns the central angle between two coordinates
+     * @return central angle as double
+     * @methodtype get
+     */
     @Override
     public double getCentralAngle(Coordinate coordinate) {
         SphericCoordinate sphericCoordinate = coordinate.asSphericCoordinate();
@@ -68,20 +124,31 @@ public class SphericCoordinate implements Coordinate{
                 Math.cos(Math.toRadians(sphericCoordinate.getTheta() - this.theta))));
     }
 
+    /**
+     * wirtes coordinate details from rset into update object
+     * @param rset ResultSet containing RodentPhoto information
+     * @methodtype command
+     */
     public void writeOn(ResultSet rset) throws SQLException {
         rset.updateDouble("coordinate_unit_1", this.phi);
         rset.updateDouble("coordinate_unit_2", this.theta);
         rset.updateDouble("coordinate_unit_3", this.radius);
     }
 
+    /**
+     * checks whether the phi, theta and radius of coordinates of a given object is equal to the current object
+     * @param coordinate type Coordinate
+     * @return true if phi, theta and radius value of a coordinate equals the phi, theta and radius of the current object
+     * @methodtype comparison
+     */
     @Override
     public boolean isEqual(Coordinate coordinate) {
         SphericCoordinate otherSphericCoordinate = coordinate.asSphericCoordinate();
         double tolerance = 0.001;
-        boolean x_equals = Math.abs(otherSphericCoordinate.phi-this.phi)<=tolerance;
-        boolean y_equals = Math.abs(otherSphericCoordinate.theta-this.theta)<=tolerance;
-        boolean z_equals = Math.abs(otherSphericCoordinate.radius-this.radius)<=tolerance;
-        return x_equals && y_equals && z_equals;
+        boolean phi_equals = Math.abs(otherSphericCoordinate.phi-this.phi)<=tolerance;
+        boolean theta_equals = Math.abs(otherSphericCoordinate.theta-this.theta)<=tolerance;
+        boolean radius_equals = Math.abs(otherSphericCoordinate.radius-this.radius)<=tolerance;
+        return phi_equals && theta_equals && radius_equals;
     }
 
     /**
@@ -94,9 +161,9 @@ public class SphericCoordinate implements Coordinate{
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null) return false;
-        if (!(obj instanceof SphericCoordinate)) return false;
+        if (!(obj instanceof Coordinate)) return false;
 
-        SphericCoordinate other = (SphericCoordinate) obj;
+        Coordinate other = (Coordinate) obj;
         return isEqual(other);
     }
 

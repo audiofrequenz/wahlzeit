@@ -42,9 +42,9 @@ public class CartesianCoordinate implements Coordinate{
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null) return false;
-        if (!(obj instanceof CartesianCoordinate)) return false;
+        if (!(obj instanceof Coordinate)) return false;
 
-        CartesianCoordinate other = (CartesianCoordinate) obj;
+        Coordinate other = (Coordinate) obj;
         return isEqual(other);
     }
 
@@ -68,6 +68,11 @@ public class CartesianCoordinate implements Coordinate{
         return x_equals && y_equals && z_equals;
     }
 
+    /**
+     * wirtes coordinate details from rset into update object
+     * @param rset ResultSet containing RodentPhoto information
+     * @methodtype command
+     */
     public void writeOn(ResultSet rset) throws SQLException {
         rset.updateDouble("coordinate_unit_1", this.x);
         rset.updateDouble("coordinate_unit_2", this.y);
@@ -128,24 +133,47 @@ public class CartesianCoordinate implements Coordinate{
         this.z = z;
     }
 
+    /**
+     * returns coordinate as cartesian coordinate
+     * @return this object
+     * @methodtype conversion
+     */
     @Override
     public CartesianCoordinate asCartesianCoordinate() {
         return this;
     }
 
+    /**
+     * returns the cartesian distance between coordinate and current object
+     * @return distance between coordinate as double
+     * @methodtype get
+     */
     @Override
     public double getCartesianDistance(Coordinate coordinate) {
         return this.getDistance(coordinate.asCartesianCoordinate());
     }
 
+    /**
+     * returns coordinate as spheric coordinate
+     * @return spheric coordinate
+     * @methodtype conversion
+     */
     @Override
     public SphericCoordinate asSphericCoordinate() {
         double radius = Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2) + Math.pow(this.z, 2));
-        double theta = Math.acos(this.z / radius);
-        double phi = Math.atan2(this.y, this.x);
+        double theta = 0;
+        if(this.x != 0) {
+            theta = Math.atan(this.y / this.x);
+        }
+        double phi = Math.atan(Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2))/this.z);
         return new SphericCoordinate(phi, theta, radius);
     }
 
+    /**
+     * returns the central angle between two coordinates
+     * @return central angle as double
+     * @methodtype get
+     */
     @Override
     public double getCentralAngle(Coordinate coordinate) {
         return this.asSphericCoordinate().getCentralAngle(coordinate);
