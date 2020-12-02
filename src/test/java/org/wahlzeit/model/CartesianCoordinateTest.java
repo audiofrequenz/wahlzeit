@@ -51,9 +51,9 @@ public class CartesianCoordinateTest {
 	 */
 	@Test
 	public void getDistanceReturnsCorrectValue() {
-        assertEquals(cartesian1.getDistance(cartesian1), 0.0, 0.0);
-        assertEquals(cartesian1.getDistance(cartesian2), 2.0, 0.0);
-        assertEquals(cartesian3.getDistance(cartesian4), 3.4641016151377544, 0.0);
+        assertEquals(cartesian1.getCartesianDistance(cartesian1), 0.0, 0.0);
+        assertEquals(cartesian1.getCartesianDistance(cartesian2), 2.0, 0.0);
+        assertEquals(cartesian3.getCartesianDistance(cartesian4), 3.4641016151377544, 0.0);
     }
     
     @Test

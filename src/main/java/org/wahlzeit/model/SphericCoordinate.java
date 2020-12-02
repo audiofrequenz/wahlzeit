@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 
-public class SphericCoordinate implements Coordinate{
+public class SphericCoordinate extends AbstractCoordinate{
     private double phi;
     private double theta;
     private double radius;
@@ -90,16 +90,6 @@ public class SphericCoordinate implements Coordinate{
     }
 
     /**
-     * returns the distance between two coordinates
-     * @return distance as double
-     * @methodtype get
-     */
-    @Override
-    public double getCartesianDistance(Coordinate coordinate) {
-        return this.asCartesianCoordinate().getCartesianDistance(coordinate);
-    }
-
-    /**
      * returns coordinate as spheric coordinate
      * @return this object
      * @methodtype get
@@ -109,22 +99,6 @@ public class SphericCoordinate implements Coordinate{
         return this;
     }
 
-    /**
-     * returns the central angle between two coordinates
-     * @return central angle as double
-     * @methodtype get
-     */
-    @Override
-    public double getCentralAngle(Coordinate coordinate) {
-        SphericCoordinate sphericCoordinate = coordinate.asSphericCoordinate();
-        //Formula for central Angle = arccos(sin(phi1)*sin(phi2)+cos(phi1)*cos(phi2)*cos())
-        double result = 
-            Math.toDegrees(Math.acos(Math.sin(this.phi) *
-            Math.sin(sphericCoordinate.getPhi()) +
-            Math.cos(this.phi) * Math.cos(sphericCoordinate.getPhi()) *
-            Math.cos(sphericCoordinate.getTheta() - this.theta)));
-        return result;
-    }
 
     /**
      * wirtes coordinate details from rset into update object
@@ -135,38 +109,6 @@ public class SphericCoordinate implements Coordinate{
         rset.updateDouble("coordinate_unit_1", this.phi);
         rset.updateDouble("coordinate_unit_2", this.theta);
         rset.updateDouble("coordinate_unit_3", this.radius);
-    }
-
-    /**
-     * checks whether the phi, theta and radius of coordinates of a given object is equal to the current object
-     * @param coordinate type Coordinate
-     * @return true if phi, theta and radius value of a coordinate equals the phi, theta and radius of the current object
-     * @methodtype comparison
-     */
-    @Override
-    public boolean isEqual(Coordinate coordinate) {
-        SphericCoordinate otherSphericCoordinate = coordinate.asSphericCoordinate();
-        double tolerance = 0.001;
-        boolean phi_equals = Math.abs(otherSphericCoordinate.phi-this.phi)<=tolerance;
-        boolean theta_equals = Math.abs(otherSphericCoordinate.theta-this.theta)<=tolerance;
-        boolean radius_equals = Math.abs(otherSphericCoordinate.radius-this.radius)<=tolerance;
-        return phi_equals && theta_equals && radius_equals;
-    }
-
-    /**
-     * Override for equals to check if given object equals current object
-     * @param obj type Object
-     * @return true if object equals current instance
-     * @methodtype comparison
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (!(obj instanceof Coordinate)) return false;
-
-        Coordinate other = (Coordinate) obj;
-        return isEqual(other);
     }
 
     @Override
