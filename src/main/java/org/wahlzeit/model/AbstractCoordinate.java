@@ -1,5 +1,7 @@
 package org.wahlzeit.model;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Objects;
 
 public abstract class AbstractCoordinate implements Coordinate{
@@ -78,4 +80,6 @@ public abstract class AbstractCoordinate implements Coordinate{
                 this.asCartesianCoordinate().getZ()
         );
     }
+
+    public abstract void writeOn(ResultSet rset) throws SQLException;
 }
