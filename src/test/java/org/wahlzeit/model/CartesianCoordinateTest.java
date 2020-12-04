@@ -46,9 +46,6 @@ public class CartesianCoordinateTest {
         assertEquals(cartesian6.getZ(), 8.0, 0.0);
     }
 
-	/**
-	 *
-	 */
 	@Test
 	public void getDistanceReturnsCorrectValue() {
         assertEquals(cartesian1.getCartesianDistance(cartesian1), 0.0, 0.0);
@@ -75,12 +72,18 @@ public class CartesianCoordinateTest {
     @Test
     public void getCentralAngleReturnsCorrectValue() {
         //angle should be 0.0 as identical coordinates are compared
-        assertEquals(cartesianCoordinate1.asSphericCoordinate().getCentralAngle(sphericCoordinate1), 0.0, 0.1); 
+        assertEquals(cartesianCoordinate1.getCentralAngle(sphericCoordinate1), 0.0, 0.1); 
 
         //angle should be 90 degrees due to given coordinates
         CartesianCoordinate car1 = new CartesianCoordinate(0, 0, 4); //coordinate on z-axis
         CartesianCoordinate car2 = new CartesianCoordinate(5, 0, 0); //coordinate on x-axis
         double centralAngle1 = car1.getCentralAngle(car2);
         assertEquals(centralAngle1, 90.0, 0.0);
+    }
+
+    @Test
+    public void correctHashCodeIsGenerated() {
+        assertTrue(cartesian1.hashCode() == cartesian5.hashCode());
+        assertFalse(cartesian1.hashCode() == cartesian2.hashCode());
     }
 }
