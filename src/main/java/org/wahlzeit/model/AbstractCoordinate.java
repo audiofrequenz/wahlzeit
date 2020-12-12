@@ -14,6 +14,7 @@ public abstract class AbstractCoordinate implements Coordinate{
      */
     @Override
     public double getCartesianDistance(Coordinate coordinate) {
+        assertCoordinateIsNotNull(coordinate);
         CartesianCoordinate currentObjectCoordinate = this.asCartesianCoordinate();
         CartesianCoordinate givenCoordinate = coordinate.asCartesianCoordinate();
         return  Math.sqrt(Math.pow(givenCoordinate.getX() - currentObjectCoordinate.getX(), 2) +
@@ -29,13 +30,21 @@ public abstract class AbstractCoordinate implements Coordinate{
      */
     @Override
     public double getCentralAngle(Coordinate coordinate) {
+        assertCoordinateIsNotNull(coordinate);
         SphericCoordinate currentObjectCoordinate = this.asSphericCoordinate();
         SphericCoordinate givenCoordinate = coordinate.asSphericCoordinate();
+        // assert that asSphericCoordinate returned valid objects = post condition and pre condition
+
         //Formula for central Angle = arccos(sin(phi1)*sin(phi2)+cos(phi1)*cos(phi2)*cos())
+        return doGetCentralAngle(currentObjectCoordinate, givenCoordinate);
+        // check for class invariant
+    }
+
+    public double doGetCentralAngle(SphericCoordinate currentObjectCoordinate, SphericCoordinate givenCoordinate) {
         return Math.toDegrees(Math.acos(Math.sin(currentObjectCoordinate.getPhi()) *
-                Math.sin(givenCoordinate.getPhi()) +
-                Math.cos(currentObjectCoordinate.getPhi()) * Math.cos(givenCoordinate.getPhi()) *
-                Math.cos(givenCoordinate.getTheta() - currentObjectCoordinate.getTheta())));
+            Math.sin(givenCoordinate.getPhi()) +
+            Math.cos(currentObjectCoordinate.getPhi()) * Math.cos(givenCoordinate.getPhi()) *
+            Math.cos(givenCoordinate.getTheta() - currentObjectCoordinate.getTheta())));
     }
 
     /**
@@ -62,8 +71,16 @@ public abstract class AbstractCoordinate implements Coordinate{
      */
     @Override
     public boolean isEqual(Coordinate other){
+        assertCoordinateIsNotNull(other);
         CartesianCoordinate currentObjectCoordinate = this.asCartesianCoordinate();
         CartesianCoordinate otherCartesianCoordinate = other.asCartesianCoordinate();
+        //assert that valid CartesianCoordinate objects where created
+        return isEqualCoordinate(currentObjectCoordinate, otherCartesianCoordinate);
+        //assertClassInvariant();
+    }
+
+    private boolean isEqualCoordinate(CartesianCoordinate currentObjectCoordinate,
+            CartesianCoordinate otherCartesianCoordinate) {
         double tolerance = 0.001;
         boolean x_equals = Math.abs(otherCartesianCoordinate.getX()-currentObjectCoordinate.getX())<=tolerance;
         boolean y_equals = Math.abs(otherCartesianCoordinate.getY()-currentObjectCoordinate.getY())<=tolerance;
@@ -74,6 +91,7 @@ public abstract class AbstractCoordinate implements Coordinate{
 
     @Override
     public int hashCode() {
+        assertCoordinateIsNotNull(this);
         return Objects.hash(
                 this.asCartesianCoordinate().getX(),
                 this.asCartesianCoordinate().getY(),
@@ -82,4 +100,18 @@ public abstract class AbstractCoordinate implements Coordinate{
     }
 
     public abstract void writeOn(ResultSet rset) throws SQLException;
+
+    public void assertCoordinateIsNotNull(Coordinate coordinate) {
+        if (coordinate == null) {
+            throw new NullPointerException("coordinate may not be null");
+        }
+    }
+
+    protected abstract void assertClassInvariant();
+
+    // public void assertValidArgument(Object object) {
+    //     if (object.getClass() != SphericCoordinate.class)
+    //             throw new IllegalArgumentException("object should be of type SphericCoordinate");
+    //     }
+    // };
 }

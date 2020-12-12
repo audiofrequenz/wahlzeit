@@ -2,7 +2,6 @@ package org.wahlzeit.model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Objects;
 
 public class CartesianCoordinate extends AbstractCoordinate{
     private double x;
@@ -95,6 +94,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
      */
     @Override
     public CartesianCoordinate asCartesianCoordinate() {
+        assertCoordinateIsNotNull(this);
         return this;
     }
 
@@ -105,6 +105,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
      */
     @Override
     public SphericCoordinate asSphericCoordinate() {
+        assertCoordinateIsNotNull(this);
         double radius = Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2) + Math.pow(this.z, 2));
         double theta = 0;
         if(this.x != 0) {
@@ -114,4 +115,19 @@ public class CartesianCoordinate extends AbstractCoordinate{
         return new SphericCoordinate(phi, theta, radius);
     }
 
+    public void assertCoordinateIsNotNull(Coordinate coordinate) {
+        if (coordinate == null) {
+            throw new IllegalArgumentException("coordinate may not be null");
+        }
+    }
+
+    @Override
+    public void assertClassInvariant() {
+        if (Double.isNaN(this.getX())
+            || Double.isNaN(this.getY())
+            || Double.isNaN(this.getZ())) {
+                // TO DO: find better exception or write own one
+                throw new IllegalArgumentException();
+        }
+    };
 }

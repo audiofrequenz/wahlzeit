@@ -20,6 +20,7 @@ public class SphericCoordinateTest {
     SphericCoordinate sphericCoordinate1 = null;
     CartesianCoordinate cartesianCoordinate1 = null;
     Location location1 = null;
+    SphericCoordinate nullSphere = null;
 
     @Before
 	public void setUp() {
@@ -108,5 +109,45 @@ public class SphericCoordinateTest {
     public void correctHashCodeIsGenerated() {
         assertEquals(spheric1.hashCode(), spheric5.hashCode(), 0.0); 
         assertFalse(spheric1.hashCode() == spheric2.hashCode()); 
-    }    
+    }
+    
+    @Test
+    public void shouldThrowNullPointerException1() {
+        try
+        {
+            spheric0.getCartesianDistance(nullSphere);
+        }
+        catch(Exception ex)
+        {
+            Exception expectedException = new NullPointerException("coordinate may not be null");
+            assertTrue(ex.getClass().equals(expectedException.getClass()));
+            assertTrue(ex.getMessage().equals(expectedException.getMessage()));
+        }
+    }
+
+    @Test
+    public void shouldThrowNullPointerException2() {        
+        try
+        {
+            nullSphere.getCartesianDistance(spheric0);
+        }
+        catch(Exception ex)
+        {
+            Exception expectedException = new NullPointerException();
+            assertTrue(ex.getClass().equals(expectedException.getClass()));
+        }
+    }
+
+    @Test
+    public void shouldThrowNullPointerException3() {        
+        try
+        {
+            nullSphere.getCartesianDistance(nullSphere);
+        }
+        catch(Exception ex)
+        {
+            Exception expectedException = new NullPointerException();
+            assertTrue(ex.getClass().equals(expectedException.getClass()));
+        }
+    }
 }

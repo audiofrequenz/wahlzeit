@@ -83,6 +83,7 @@ public class SphericCoordinate extends AbstractCoordinate{
      */
     @Override
     public CartesianCoordinate asCartesianCoordinate() {
+        assertCoordinateIsNotNull(this);
         double x = this.radius * Math.sin(this.phi)*Math.cos(this.theta);
         double y = this.radius * Math.sin(this.phi)*Math.sin(this.theta);
         double z = this.radius * Math.cos(this.phi);
@@ -96,6 +97,7 @@ public class SphericCoordinate extends AbstractCoordinate{
      */
     @Override
     public SphericCoordinate asSphericCoordinate() {
+        assertCoordinateIsNotNull(this);
         return this;
     }
 
@@ -115,4 +117,14 @@ public class SphericCoordinate extends AbstractCoordinate{
     public int hashCode() {
         return Objects.hash(this.radius, this.theta, this.phi);
     }
+
+    @Override
+    public void assertClassInvariant() {
+        if (Double.isNaN(this.getPhi()) || this.getPhi() <= 0 
+            || Double.isNaN(this.getTheta()) || this.getRadius() <= 0 
+            || Double.isNaN(this.getRadius()) || this.getTheta() <= 0) {
+                // TO DO: find better exception or write own one
+                throw new IllegalArgumentException();
+        }
+    };
 }
