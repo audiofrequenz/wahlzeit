@@ -119,7 +119,7 @@ public class SphericCoordinateTest {
         }
         catch(Exception ex)
         {
-            Exception expectedException = new NullPointerException("coordinate may not be null");
+            Exception expectedException = new NullPointerException("Object may not be null");
             assertTrue(ex.getClass().equals(expectedException.getClass()));
             assertTrue(ex.getMessage().equals(expectedException.getMessage()));
         }
@@ -146,8 +146,9 @@ public class SphericCoordinateTest {
         }
         catch(Exception ex)
         {
-            Exception expectedException = new IllegalArgumentException();
+            Exception expectedException = new IllegalArgumentException("spherical coordinate has invalid properties");
             assertTrue(ex.getClass().equals(expectedException.getClass()));
+            assertTrue(ex.getMessage().equals(expectedException.getMessage()));
         }
     }
 }

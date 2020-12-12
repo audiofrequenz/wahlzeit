@@ -88,7 +88,6 @@ public abstract class AbstractCoordinate implements Coordinate{
         assertObjectIsNotNull(other);
         CartesianCoordinate currentObjectCoordinate = this.asCartesianCoordinate();
         CartesianCoordinate otherCartesianCoordinate = other.asCartesianCoordinate();
-        //assert that valid CartesianCoordinate objects where created
         boolean areCoordinatesEqual = isEqualCoordinate(currentObjectCoordinate, otherCartesianCoordinate);
         assertClassInvariant();
         return areCoordinatesEqual;

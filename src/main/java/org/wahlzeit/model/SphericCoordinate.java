@@ -20,6 +20,7 @@ public class SphericCoordinate extends AbstractCoordinate{
         this.phi = phi;
         this.theta = theta;
         this.radius = radius;
+        assertClassInvariant();
     }
 
     /**
@@ -131,11 +132,10 @@ public class SphericCoordinate extends AbstractCoordinate{
 
     @Override
     public void assertClassInvariant() {
-        if (Double.isNaN(this.getPhi()) || this.getPhi() <= 0 
-            || Double.isNaN(this.getTheta()) || this.getRadius() <= 0 
-            || Double.isNaN(this.getRadius()) || this.getTheta() <= 0) {
-                // TO DO: find better exception or write own one
-                throw new IllegalArgumentException();
+        if (Double.isNaN(this.getPhi()) 
+            || Double.isNaN(this.getTheta())
+            || Double.isNaN(this.getRadius())) {
+                throw new IllegalArgumentException("spherical coordinate has invalid properties");
         }
     };
 }

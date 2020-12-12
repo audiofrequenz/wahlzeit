@@ -133,7 +133,6 @@ public class CartesianCoordinate extends AbstractCoordinate{
         if (Double.isNaN(this.getX())
             || Double.isNaN(this.getY())
             || Double.isNaN(this.getZ())) {
-                // TO DO: find better exception or write own one
                 throw new IllegalArgumentException("cartesian coordinate has invalid properties");
         }
     };
