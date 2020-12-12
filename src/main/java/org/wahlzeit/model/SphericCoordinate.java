@@ -83,11 +83,14 @@ public class SphericCoordinate extends AbstractCoordinate{
      */
     @Override
     public CartesianCoordinate asCartesianCoordinate() {
-        assertCoordinateIsNotNull(this);
+        assertClassInvariant();
+        assertObjectIsNotNull(this);
         double x = this.radius * Math.sin(this.phi)*Math.cos(this.theta);
         double y = this.radius * Math.sin(this.phi)*Math.sin(this.theta);
         double z = this.radius * Math.cos(this.phi);
-        return new CartesianCoordinate(x,y,z);
+        CartesianCoordinate coordinate = new CartesianCoordinate(x,y,z);
+        assertClassInvariant();
+        return coordinate;
     }
 
     /**
@@ -97,7 +100,8 @@ public class SphericCoordinate extends AbstractCoordinate{
      */
     @Override
     public SphericCoordinate asSphericCoordinate() {
-        assertCoordinateIsNotNull(this);
+        assertClassInvariant();
+        assertObjectIsNotNull(this);
         return this;
     }
 
@@ -108,14 +112,21 @@ public class SphericCoordinate extends AbstractCoordinate{
      * @methodtype command
      */
     public void writeOn(ResultSet rset) throws SQLException {
+        assertClassInvariant();
+        assertObjectIsNotNull(rset);
         rset.updateDouble("coordinate_unit_1", this.phi);
         rset.updateDouble("coordinate_unit_2", this.theta);
         rset.updateDouble("coordinate_unit_3", this.radius);
+        assertClassInvariant();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.radius, this.theta, this.phi);
+        assertClassInvariant();
+        assertObjectIsNotNull(this);
+        int hash = Objects.hash(this.radius, this.theta, this.phi);
+        assertClassInvariant();
+        return hash;
     }
 
     @Override
