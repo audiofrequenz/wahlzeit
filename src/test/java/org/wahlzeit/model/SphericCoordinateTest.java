@@ -112,7 +112,7 @@ public class SphericCoordinateTest {
     }
     
     @Test
-    public void shouldThrowNullPointerException1() {
+    public void testIfCorrectExceptionIsThrownIfParameterCoordinateIsNull() {
         try
         {
             spheric0.getCartesianDistance(nullSphere);
@@ -126,7 +126,7 @@ public class SphericCoordinateTest {
     }
 
     @Test
-    public void shouldThrowNullPointerException2() {        
+    public void shouldThrowNullPointerException() {        
         try
         {
             nullSphere.getCartesianDistance(spheric0);
@@ -139,14 +139,14 @@ public class SphericCoordinateTest {
     }
 
     @Test
-    public void shouldThrowNullPointerException3() {        
+    public void testAssertClassInvariantMethod() {        
         try
         {
-            nullSphere.getCartesianDistance(nullSphere);
+            spheric0.assertClassInvariant();
         }
         catch(Exception ex)
         {
-            Exception expectedException = new NullPointerException();
+            Exception expectedException = new IllegalArgumentException();
             assertTrue(ex.getClass().equals(expectedException.getClass()));
         }
     }

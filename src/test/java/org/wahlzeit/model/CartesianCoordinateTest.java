@@ -86,4 +86,18 @@ public class CartesianCoordinateTest {
         assertTrue(cartesian1.hashCode() == cartesian5.hashCode());
         assertFalse(cartesian1.hashCode() == cartesian2.hashCode());
     }
+
+    @Test
+    public void testAssertClassInvariantMethod() {  
+        try
+        {
+            new CartesianCoordinate(6.0, Double.NaN, 3.0);
+        }
+        catch(Exception ex)
+        {
+            Exception expectedException = new IllegalArgumentException("cartesian coordinate has invalid properties");
+            assertTrue(ex.getClass().equals(expectedException.getClass()));
+            assertTrue(ex.getMessage().equals(expectedException.getMessage()));
+        }
+    }
 }

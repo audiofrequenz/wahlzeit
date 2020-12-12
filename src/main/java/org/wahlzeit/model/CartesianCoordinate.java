@@ -19,6 +19,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
         this.x = x;
         this.y = y;
         this.z = z;
+        assertClassInvariant();
     }
 
 
@@ -127,7 +128,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
             || Double.isNaN(this.getY())
             || Double.isNaN(this.getZ())) {
                 // TO DO: find better exception or write own one
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("cartesian coordinate has invalid properties");
         }
     };
 }
