@@ -14,12 +14,15 @@ public abstract class AbstractCoordinate implements Coordinate{
      */
     @Override
     public double getCartesianDistance(Coordinate coordinate) {
+        assertClassInvariant();
         assertCoordinateIsNotNull(coordinate);
         CartesianCoordinate currentObjectCoordinate = this.asCartesianCoordinate();
         CartesianCoordinate givenCoordinate = coordinate.asCartesianCoordinate();
-        return  Math.sqrt(Math.pow(givenCoordinate.getX() - currentObjectCoordinate.getX(), 2) +
+        double distance = Math.sqrt(Math.pow(givenCoordinate.getX() - currentObjectCoordinate.getX(), 2) +
                 Math.pow(givenCoordinate.getY() - currentObjectCoordinate.getY(), 2) +
                 Math.pow(givenCoordinate.getZ() - currentObjectCoordinate.getZ(), 2));
+        assertClassInvariant();
+        return distance;
     }
 
     /**
@@ -30,13 +33,16 @@ public abstract class AbstractCoordinate implements Coordinate{
      */
     @Override
     public double getCentralAngle(Coordinate coordinate) {
+        assertClassInvariant();
         assertCoordinateIsNotNull(coordinate);
         SphericCoordinate currentObjectCoordinate = this.asSphericCoordinate();
         SphericCoordinate givenCoordinate = coordinate.asSphericCoordinate();
         // assert that asSphericCoordinate returned valid objects = post condition and pre condition
 
         //Formula for central Angle = arccos(sin(phi1)*sin(phi2)+cos(phi1)*cos(phi2)*cos())
-        return doGetCentralAngle(currentObjectCoordinate, givenCoordinate);
+        double centralAngle = doGetCentralAngle(currentObjectCoordinate, givenCoordinate);
+        assertClassInvariant();
+        return centralAngle;
         // check for class invariant
     }
 
@@ -71,32 +77,39 @@ public abstract class AbstractCoordinate implements Coordinate{
      */
     @Override
     public boolean isEqual(Coordinate other){
+        assertClassInvariant();
         assertCoordinateIsNotNull(other);
         CartesianCoordinate currentObjectCoordinate = this.asCartesianCoordinate();
         CartesianCoordinate otherCartesianCoordinate = other.asCartesianCoordinate();
         //assert that valid CartesianCoordinate objects where created
-        return isEqualCoordinate(currentObjectCoordinate, otherCartesianCoordinate);
+        boolean areCoordinatesEqual = isEqualCoordinate(currentObjectCoordinate, otherCartesianCoordinate);
+        assertClassInvariant();
+        return areCoordinatesEqual;
         //assertClassInvariant();
     }
 
     private boolean isEqualCoordinate(CartesianCoordinate currentObjectCoordinate,
             CartesianCoordinate otherCartesianCoordinate) {
+        assertClassInvariant();
         double tolerance = 0.001;
         boolean x_equals = Math.abs(otherCartesianCoordinate.getX()-currentObjectCoordinate.getX())<=tolerance;
         boolean y_equals = Math.abs(otherCartesianCoordinate.getY()-currentObjectCoordinate.getY())<=tolerance;
         boolean z_equals = Math.abs(otherCartesianCoordinate.getZ()-currentObjectCoordinate.getZ())<=tolerance;
+        assertClassInvariant();
         return x_equals && y_equals && z_equals;
     }
 
 
     @Override
     public int hashCode() {
+        assertClassInvariant();
         assertCoordinateIsNotNull(this);
-        return Objects.hash(
+        int hash = Objects.hash(
                 this.asCartesianCoordinate().getX(),
                 this.asCartesianCoordinate().getY(),
-                this.asCartesianCoordinate().getZ()
-        );
+                this.asCartesianCoordinate().getZ());
+        assertClassInvariant();
+        return hash;
     }
 
     public abstract void writeOn(ResultSet rset) throws SQLException;
