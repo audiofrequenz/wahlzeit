@@ -98,7 +98,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
     @Override
     public CartesianCoordinate asCartesianCoordinate() {
         assertClassInvariant();
-        assertCoordinateIsNotNull(this);
+        assertObjectIsNotNull(this);
         return this;
     }
 
@@ -110,7 +110,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
     @Override
     public SphericCoordinate asSphericCoordinate() {
         assertClassInvariant();
-        assertCoordinateIsNotNull(this);
+        assertObjectIsNotNull(this);
         double radius = Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2) + Math.pow(this.z, 2));
         double theta = 0;
         if(this.x != 0) {
@@ -120,12 +120,6 @@ public class CartesianCoordinate extends AbstractCoordinate{
         SphericCoordinate coordinate = new SphericCoordinate(phi, theta, radius);
         assertClassInvariant();
         return coordinate;
-    }
-
-    public void assertCoordinateIsNotNull(Coordinate coordinate) {
-        if (coordinate == null) {
-            throw new IllegalArgumentException("coordinate may not be null");
-        }
     }
 
     @Override
