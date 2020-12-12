@@ -15,12 +15,14 @@ public abstract class AbstractCoordinate implements Coordinate{
     @Override
     public double getCartesianDistance(Coordinate coordinate) {
         assertClassInvariant();
-        assertCoordinateIsNotNull(coordinate);
+        assertObjectIsNotNull(coordinate);
         CartesianCoordinate currentObjectCoordinate = this.asCartesianCoordinate();
         CartesianCoordinate givenCoordinate = coordinate.asCartesianCoordinate();
         double distance = Math.sqrt(Math.pow(givenCoordinate.getX() - currentObjectCoordinate.getX(), 2) +
                 Math.pow(givenCoordinate.getY() - currentObjectCoordinate.getY(), 2) +
                 Math.pow(givenCoordinate.getZ() - currentObjectCoordinate.getZ(), 2));
+        assertArgumentIsNaN(distance);
+        assertValueValid(distance);
         assertClassInvariant();
         return distance;
     }
@@ -34,23 +36,28 @@ public abstract class AbstractCoordinate implements Coordinate{
     @Override
     public double getCentralAngle(Coordinate coordinate) {
         assertClassInvariant();
-        assertCoordinateIsNotNull(coordinate);
+        assertObjectIsNotNull(coordinate);
         SphericCoordinate currentObjectCoordinate = this.asSphericCoordinate();
         SphericCoordinate givenCoordinate = coordinate.asSphericCoordinate();
-        // assert that asSphericCoordinate returned valid objects = post condition and pre condition
 
         //Formula for central Angle = arccos(sin(phi1)*sin(phi2)+cos(phi1)*cos(phi2)*cos())
         double centralAngle = doGetCentralAngle(currentObjectCoordinate, givenCoordinate);
+        assertArgumentIsNaN(centralAngle);
         assertClassInvariant();
         return centralAngle;
-        // check for class invariant
     }
 
     public double doGetCentralAngle(SphericCoordinate currentObjectCoordinate, SphericCoordinate givenCoordinate) {
-        return Math.toDegrees(Math.acos(Math.sin(currentObjectCoordinate.getPhi()) *
-            Math.sin(givenCoordinate.getPhi()) +
-            Math.cos(currentObjectCoordinate.getPhi()) * Math.cos(givenCoordinate.getPhi()) *
-            Math.cos(givenCoordinate.getTheta() - currentObjectCoordinate.getTheta())));
+        assertClassInvariant();
+        assertObjectIsNotNull(currentObjectCoordinate);
+        assertObjectIsNotNull(givenCoordinate);
+        double angle = Math.toDegrees(Math.acos(Math.sin(currentObjectCoordinate.getPhi()) *
+                Math.sin(givenCoordinate.getPhi()) +
+                Math.cos(currentObjectCoordinate.getPhi()) * Math.cos(givenCoordinate.getPhi()) *
+                        Math.cos(givenCoordinate.getTheta() - currentObjectCoordinate.getTheta())));
+        assertArgumentIsNaN(angle);
+        assertClassInvariant();
+        return angle;
     }
 
     /**
@@ -78,19 +85,27 @@ public abstract class AbstractCoordinate implements Coordinate{
     @Override
     public boolean isEqual(Coordinate other){
         assertClassInvariant();
-        assertCoordinateIsNotNull(other);
+        assertObjectIsNotNull(other);
         CartesianCoordinate currentObjectCoordinate = this.asCartesianCoordinate();
         CartesianCoordinate otherCartesianCoordinate = other.asCartesianCoordinate();
         //assert that valid CartesianCoordinate objects where created
         boolean areCoordinatesEqual = isEqualCoordinate(currentObjectCoordinate, otherCartesianCoordinate);
         assertClassInvariant();
         return areCoordinatesEqual;
-        //assertClassInvariant();
     }
 
+    /**
+     * checks whether the x, y and z coordinates of a given object is equal to another coordinate
+     * @param currentObjectCoordinate currentObjectCoordinate type Coordinate
+     * @param otherCartesianCoordinate otherCartesianCoordinate type Coordinate
+     * @return true if x, y, z value of a coordinate equals the x, y, z of the other coordinate
+     * @methodtype comparison
+     */
     private boolean isEqualCoordinate(CartesianCoordinate currentObjectCoordinate,
             CartesianCoordinate otherCartesianCoordinate) {
         assertClassInvariant();
+        assertObjectIsNotNull(currentObjectCoordinate);
+        assertObjectIsNotNull(otherCartesianCoordinate);
         double tolerance = 0.001;
         boolean x_equals = Math.abs(otherCartesianCoordinate.getX()-currentObjectCoordinate.getX())<=tolerance;
         boolean y_equals = Math.abs(otherCartesianCoordinate.getY()-currentObjectCoordinate.getY())<=tolerance;
@@ -103,7 +118,7 @@ public abstract class AbstractCoordinate implements Coordinate{
     @Override
     public int hashCode() {
         assertClassInvariant();
-        assertCoordinateIsNotNull(this);
+        assertObjectIsNotNull(this);
         int hash = Objects.hash(
                 this.asCartesianCoordinate().getX(),
                 this.asCartesianCoordinate().getY(),
@@ -114,14 +129,44 @@ public abstract class AbstractCoordinate implements Coordinate{
 
     public abstract void writeOn(ResultSet rset) throws SQLException;
 
-    public void assertCoordinateIsNotNull(Coordinate coordinate) {
-        if (coordinate == null) {
-            throw new NullPointerException("coordinate may not be null");
+    /**
+     * Check that the object is not null.
+     * @param object
+     * @methodtype condition
+     */
+    public void assertObjectIsNotNull(Object object) {
+        if (object == null) {
+            throw new NullPointerException("Object may not be null");
         }
     }
 
+    /**
+     * Check that the values are not NaN.
+     * @methodtype invariant
+     */
     protected abstract void assertClassInvariant();
 
+    /**
+     * Check that the values not smaller than 0.
+     * @param value
+     * @methodtype condition
+     */
+    protected void assertValueValid(double value) {
+        if (value < 0) {
+            throw new IllegalArgumentException("Value should not be smaller than Zero");
+        }
+    }
+
+    /**
+     * Check that the values are not NaN.
+     * @param value
+     * @methodtype condition
+     */
+    public void assertArgumentIsNaN(double value) {
+        if(Double.isNaN(value)) {
+            throw new IllegalArgumentException("value has to be a number (double)");
+        }
+    }
     // public void assertValidArgument(Object object) {
     //     if (object.getClass() != SphericCoordinate.class)
     //             throw new IllegalArgumentException("object should be of type SphericCoordinate");
