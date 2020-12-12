@@ -151,4 +151,18 @@ public class SphericCoordinateTest {
             assertTrue(ex.getMessage().equals(expectedException.getMessage()));
         }
     }
+
+    @Test
+    public void testAssertValueValidMethod() {        
+        try
+        {
+            spheric0.assertValueValid(-1);
+        }
+        catch(Exception ex)
+        {
+            Exception expectedException = new IllegalArgumentException("Value should not be smaller than Zero");
+            assertTrue(ex.getClass().equals(expectedException.getClass()));
+            assertTrue(ex.getMessage().equals(expectedException.getMessage()));
+        }
+    }
 }

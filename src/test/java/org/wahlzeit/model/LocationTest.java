@@ -15,7 +15,7 @@ public class LocationTest {
 	 */
     @Test
 	public void locationisInstantiatedCorrectlyWithCartesianCoordinate() {
-        // mocked version, mock is not needed here though, was just figuring out how it works
+        // mocked version
         CartesianCoordinate mockedCoordinate = mock(CartesianCoordinate.class);
         when(mockedCoordinate.getX()).thenReturn(0.0);
         when(mockedCoordinate.getY()).thenReturn(2.0);

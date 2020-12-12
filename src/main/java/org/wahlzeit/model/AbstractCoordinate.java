@@ -8,8 +8,9 @@ public abstract class AbstractCoordinate implements Coordinate{
 
     /**
      * Calculates the distance between two cartesian coordinates
+     * 
      * @param coordinate type Coordinate
-     * @return double with cartesian distance between current coordinate and given parameter coordinate
+     * @return double with cartesian distance between current coordinate and given
      * @methodtype get
      */
     @Override
@@ -18,12 +19,17 @@ public abstract class AbstractCoordinate implements Coordinate{
         assertObjectIsNotNull(coordinate);
         CartesianCoordinate currentObjectCoordinate = this.asCartesianCoordinate();
         CartesianCoordinate givenCoordinate = coordinate.asCartesianCoordinate();
-        double distance = Math.sqrt(Math.pow(givenCoordinate.getX() - currentObjectCoordinate.getX(), 2) +
-                Math.pow(givenCoordinate.getY() - currentObjectCoordinate.getY(), 2) +
-                Math.pow(givenCoordinate.getZ() - currentObjectCoordinate.getZ(), 2));
+        double distance = doGetCartesianDistance(currentObjectCoordinate, givenCoordinate);
         assertArgumentIsNaN(distance);
         assertValueValid(distance);
         assertClassInvariant();
+        return distance;
+    }
+
+    private double doGetCartesianDistance(CartesianCoordinate currentObjectCoordinate, CartesianCoordinate givenCoordinate) {
+        double distance = Math.sqrt(Math.pow(givenCoordinate.getX() - currentObjectCoordinate.getX(), 2) +
+                Math.pow(givenCoordinate.getY() - currentObjectCoordinate.getY(), 2) +
+                Math.pow(givenCoordinate.getZ() - currentObjectCoordinate.getZ(), 2));
         return distance;
     }
 
@@ -163,12 +169,7 @@ public abstract class AbstractCoordinate implements Coordinate{
      */
     public void assertArgumentIsNaN(double value) {
         if(Double.isNaN(value)) {
-            throw new IllegalArgumentException("value has to be a number (double)");
+            throw new NumberFormatException("value has to be a number (double)");
         }
     }
-    // public void assertValidArgument(Object object) {
-    //     if (object.getClass() != SphericCoordinate.class)
-    //             throw new IllegalArgumentException("object should be of type SphericCoordinate");
-    //     }
-    // };
 }

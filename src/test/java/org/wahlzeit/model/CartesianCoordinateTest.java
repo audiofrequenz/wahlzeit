@@ -5,6 +5,7 @@ import org.junit.Before;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 
 /**
  * Test cases for the Coordinate class.
@@ -22,7 +23,7 @@ public class CartesianCoordinateTest {
     Location location1 = null;
 
     @Before
-	public void setUp() {
+    public void setUp() {
         cartesian1 = new CartesianCoordinate(0.0, 2.0, 0.0);
         cartesian2 = new CartesianCoordinate(0.0, 4.0, 0.0);
 
@@ -33,12 +34,12 @@ public class CartesianCoordinateTest {
 
         cartesianCoordinate1 = new CartesianCoordinate(3, 4, 5);
         sphericCoordinate1 = new SphericCoordinate(0.78539816339745, 0.92729521800161, 7.0710678118655);
-        
+
         location1 = new Location(CoordinateType.CARTESIAN, cartesian1);
     }
 
     @Test
-	public void coordinateIsInstantiatedCorrectly() {
+    public void coordinateIsInstantiatedCorrectly() {
         CartesianCoordinate cartesian6 = new CartesianCoordinate(6.0, 7.0, 8.0);
         assertTrue(cartesian6 != null);
         assertEquals(cartesian6.getX(), 6.0, 0.0);
@@ -46,8 +47,8 @@ public class CartesianCoordinateTest {
         assertEquals(cartesian6.getZ(), 8.0, 0.0);
     }
 
-	@Test
-	public void getDistanceReturnsCorrectValue() {
+    @Test
+    public void getDistanceReturnsCorrectValue() {
         assertEquals(cartesian1.getCartesianDistance(cartesian1), 0.0, 0.0);
         assertEquals(cartesian1.getCartesianDistance(cartesian2), 2.0, 0.0);
         assertEquals(cartesian3.getCartesianDistance(cartesian4), 3.4641016151377544, 0.0);
@@ -96,6 +97,21 @@ public class CartesianCoordinateTest {
         catch(Exception ex)
         {
             Exception expectedException = new IllegalArgumentException("cartesian coordinate has invalid properties");
+            assertTrue(ex.getClass().equals(expectedException.getClass()));
+            assertTrue(ex.getMessage().equals(expectedException.getMessage()));
+        }
+    }
+
+    @Test
+    public void testAssertArgumentIsNaNMethod() {
+        try
+        {
+            CartesianCoordinate mockedCoordinate = mock(CartesianCoordinate.class);
+            when(mockedCoordinate.getCartesianDistance(cartesian1)).thenReturn(Double.NaN);
+        }
+        catch(Exception ex)
+        {
+            Exception expectedException = new NumberFormatException("value has to be a number (double)");
             assertTrue(ex.getClass().equals(expectedException.getClass()));
             assertTrue(ex.getMessage().equals(expectedException.getMessage()));
         }
