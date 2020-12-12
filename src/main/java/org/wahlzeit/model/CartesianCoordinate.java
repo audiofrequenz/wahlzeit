@@ -28,9 +28,11 @@ public class CartesianCoordinate extends AbstractCoordinate{
      * @methodtype command
      */
     public void writeOn(ResultSet rset) throws SQLException {
+        assertClassInvariant();
         rset.updateDouble("coordinate_unit_1", this.x);
         rset.updateDouble("coordinate_unit_2", this.y);
         rset.updateDouble("coordinate_unit_3", this.z);
+        assertClassInvariant();
     }
 
     /**
@@ -94,6 +96,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
      */
     @Override
     public CartesianCoordinate asCartesianCoordinate() {
+        assertClassInvariant();
         assertCoordinateIsNotNull(this);
         return this;
     }
@@ -105,6 +108,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
      */
     @Override
     public SphericCoordinate asSphericCoordinate() {
+        assertClassInvariant();
         assertCoordinateIsNotNull(this);
         double radius = Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2) + Math.pow(this.z, 2));
         double theta = 0;
@@ -112,7 +116,9 @@ public class CartesianCoordinate extends AbstractCoordinate{
             theta = Math.atan(this.y / this.x);
         }
         double phi = Math.atan(Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2))/this.z);
-        return new SphericCoordinate(phi, theta, radius);
+        SphericCoordinate coordinate = new SphericCoordinate(phi, theta, radius);
+        assertClassInvariant();
+        return coordinate;
     }
 
     public void assertCoordinateIsNotNull(Coordinate coordinate) {
