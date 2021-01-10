@@ -23,6 +23,13 @@ public class CartesianCoordinate extends AbstractCoordinate{
         assertClassInvariant();
     }
 
+    /**
+     * Returns coordinates of type Cartesian with given parameters if coordinate does not exist
+     * @param x double
+     * @param y double
+     * @param z double
+     * @methodtype getter
+     */
     public static CartesianCoordinate doGetOrCreateCoordinate(double x, double y, double z) {
         CartesianCoordinate coord = new CartesianCoordinate(x, y, z);
         int coordHash = coord.hashCode();

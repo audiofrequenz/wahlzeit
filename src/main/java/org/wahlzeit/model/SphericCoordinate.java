@@ -24,7 +24,13 @@ public class SphericCoordinate extends AbstractCoordinate{
         assertClassInvariant();
     }
 
-
+    /**
+     * Returns coordinate of type Spheric with given parameters if coordinate does not exist
+     * @param phi double
+     * @param theta double
+     * @param radius double
+     * @methodtype getter
+     */
     public static SphericCoordinate doGetOrCreateCoordinate(double phi, double theta, double radius) {
         SphericCoordinate coord = new SphericCoordinate(phi, theta, radius);
         int coordHash = coord.hashCode();
