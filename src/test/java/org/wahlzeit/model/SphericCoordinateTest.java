@@ -24,24 +24,24 @@ public class SphericCoordinateTest {
 
     @Before
 	public void setUp() {
-        spheric0 = new SphericCoordinate(0.0, 0.0, 0.0); // zero-point of coordinate system
-        spheric1 = new SphericCoordinate(0.0, 2.0, 0.0);
-        spheric2 = new SphericCoordinate(0.0, 4.0, 0.0);
+        spheric0 = SphericCoordinate.doGetOrCreateCoordinate(0.0, 0.0, 0.0); // zero-point of coordinate system
+        spheric1 = SphericCoordinate.doGetOrCreateCoordinate(0.0, 2.0, 0.0);
+        spheric2 = SphericCoordinate.doGetOrCreateCoordinate(0.0, 4.0, 0.0);
 
-        spheric3 = new SphericCoordinate(0.0, 0.0, Math.sqrt(2.0)); // cartesian point = (0,1,1)
-        spheric4 = new SphericCoordinate(-4.0, 3.0, 6.0);
+        spheric3 = SphericCoordinate.doGetOrCreateCoordinate(0.0, 0.0, Math.sqrt(2.0)); // cartesian point = (0,1,1)
+        spheric4 = SphericCoordinate.doGetOrCreateCoordinate(-4.0, 3.0, 6.0);
 
-        spheric5 = new SphericCoordinate(0.0, 2.0, 0.0); // identical to coordinate1
+        spheric5 = SphericCoordinate.doGetOrCreateCoordinate(0.0, 2.0, 0.0); // identical to coordinate1
 
-        sphericCoordinate1 = new SphericCoordinate(0.78539816339745, 0.92729521800161, 7.0710678118655);
-        cartesianCoordinate1 = new CartesianCoordinate(3.0, 4.0, 5.0); //same coordinate as shpericCoordinate1 in cartesian representation
+        sphericCoordinate1 = SphericCoordinate.doGetOrCreateCoordinate(0.78539816339745, 0.92729521800161, 7.0710678118655);
+        cartesianCoordinate1 = CartesianCoordinate.doGetOrCreateCoordinate(3.0, 4.0, 5.0); //same coordinate as shpericCoordinate1 in cartesian representation
         
         location1 = new Location(CoordinateType.SPHERIC, spheric1);
     }
 
     @Test
 	public void sphericCoordinateIsInstantiatedCorrectly() {
-        SphericCoordinate spheric6 = new SphericCoordinate(6.0, 7.0, 8.0);
+        SphericCoordinate spheric6 = SphericCoordinate.doGetOrCreateCoordinate(6.0, 7.0, 8.0);
         assertTrue(spheric6 != null);
         assertEquals(spheric6.getPhi(), 6.0, 0.0);
         assertEquals(spheric6.getTheta(), 7.0, 0.0);
@@ -76,8 +76,8 @@ public class SphericCoordinateTest {
         assertEquals(sphericCoordinate1.getCentralAngle(sphericCoordinate1), 0.0, 0.0); 
 
         //angle should be 90 degrees due to given coordinates
-        SphericCoordinate sphere1 = new SphericCoordinate(0, 0, 4); //coordinate on z-axis, cartesian = (0,0,4)
-        SphericCoordinate sphere2 = new SphericCoordinate(0, 1.5707963267948966, 5); //coordinate on x-axis, cartesian = (5,0,0)
+        SphericCoordinate sphere1 = SphericCoordinate.doGetOrCreateCoordinate(0, 0, 4); //coordinate on z-axis, cartesian = (0,0,4)
+        SphericCoordinate sphere2 = SphericCoordinate.doGetOrCreateCoordinate(0, 1.5707963267948966, 5); //coordinate on x-axis, cartesian = (5,0,0)
         double centralAngle1 = sphere1.getCentralAngle(sphere2);
         assertEquals(centralAngle1, 90, 0.0001);
     }
@@ -88,8 +88,8 @@ public class SphericCoordinateTest {
         assertEquals(cartesianCoordinate1.getCentralAngle(cartesianCoordinate1), 0.0, 0.0); 
 
         //angle should be 0 degrees since both coordinate lie on the z-axis
-        CartesianCoordinate car1 = new CartesianCoordinate(0.0, 0.0, 4.0); //coordinate on z-axis
-        SphericCoordinate sphere1 = new SphericCoordinate(0, 0, 5); //a different coordinate on z-axis
+        CartesianCoordinate car1 = CartesianCoordinate.doGetOrCreateCoordinate(0.0, 0.0, 4.0); //coordinate on z-axis
+        SphericCoordinate sphere1 = SphericCoordinate.doGetOrCreateCoordinate(0, 0, 5); //a different coordinate on z-axis
         double centralAngle1 = car1.getCentralAngle(sphere1);
         assertEquals(centralAngle1, 0, 0.0);
     }
@@ -99,8 +99,8 @@ public class SphericCoordinateTest {
         assertEquals(sphericCoordinate1.getCartesianDistance(sphericCoordinate1), 0.0, 0.0); 
 
         //distance should be 1 due to given coordinates
-        SphericCoordinate sphere1 = new SphericCoordinate(0, 0, 4); //coordinate on z-axis, cartesian = (0,0,4)
-        SphericCoordinate sphere2 = new SphericCoordinate(0, 0, 5); //a different coordinate on z-axis, cartesian = (0,0,5)
+        SphericCoordinate sphere1 = SphericCoordinate.doGetOrCreateCoordinate(0, 0, 4); //coordinate on z-axis, cartesian = (0,0,4)
+        SphericCoordinate sphere2 = SphericCoordinate.doGetOrCreateCoordinate(0, 0, 5); //a different coordinate on z-axis, cartesian = (0,0,5)
         double cartesianDistance = sphere1.getCartesianDistance(sphere2);
         assertEquals(cartesianDistance, 1, 0.0);
     }

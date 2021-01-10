@@ -128,9 +128,9 @@ public class Photo extends DataObject {
 		CoordinateType randomType = CoordinateType.getRandomCoordinateType();
 		Coordinate coordinate;
 		if (randomType.isSpheric()){
-			coordinate = new SphericCoordinate(Math.random()*100,Math.random()*100,Math.random()*100);
+			coordinate = SphericCoordinate.doGetOrCreateCoordinate(Math.random()*100,Math.random()*100,Math.random()*100);
 		} else{
-			coordinate = new CartesianCoordinate(Math.random()*100,Math.random()*100,Math.random()*100);
+			coordinate = CartesianCoordinate.doGetOrCreateCoordinate(Math.random()*100,Math.random()*100,Math.random()*100);
 		}
 		return new Location(randomType, coordinate);
 	}
@@ -180,14 +180,13 @@ public class Photo extends DataObject {
 		CoordinateType coordinate_type = CoordinateType.getFromInt(rset.getInt("coordinate_type"));
 		Coordinate coordinate;
 		if(coordinate_type.isCartesian()) {
-			coordinate = new CartesianCoordinate(
-				rset.getDouble("coordinate_unit_1"),
-				rset.getDouble("coordinate_unit_2"),
-				rset.getDouble("coordinate_unit_3")
-			);
+			coordinate = CartesianCoordinate.doGetOrCreateCoordinate(
+					rset.getDouble("coordinate_unit_1"),
+					rset.getDouble("coordinate_unit_2"),
+					rset.getDouble("coordinate_unit_3"));
 		}
 		else{
-			coordinate = new SphericCoordinate(
+			coordinate = SphericCoordinate.doGetOrCreateCoordinate(
 				rset.getDouble("coordinate_unit_1"),
 				rset.getDouble("coordinate_unit_2"),
 				rset.getDouble("coordinate_unit_3")

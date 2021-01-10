@@ -24,7 +24,7 @@ public class LocationTest {
         assertEquals(location1.coordinate, mockedCoordinate);
         
         // version without mock 
-        CartesianCoordinate cartesianCoordinate = new CartesianCoordinate(0.0, 2.0, 0.0);
+        CartesianCoordinate cartesianCoordinate = CartesianCoordinate.doGetOrCreateCoordinate(0.0, 2.0, 0.0);
         Location location2 = new Location(CoordinateType.CARTESIAN, cartesianCoordinate);
         assertTrue(location2 != null);
         assertEquals(location2.coordinate, cartesianCoordinate);
@@ -42,7 +42,7 @@ public class LocationTest {
         assertEquals(location1.coordinate, mockedCoordinate);
 
         // version without mock 
-        SphericCoordinate sphericCoordinate = new SphericCoordinate(20.0, 50.0, 3.0);
+        SphericCoordinate sphericCoordinate = SphericCoordinate.doGetOrCreateCoordinate(20.0, 50.0, 3.0);
         Location location2 = new Location(CoordinateType.SPHERIC, sphericCoordinate);
         assertTrue(location2 != null);
         assertEquals(location2.coordinate, sphericCoordinate);

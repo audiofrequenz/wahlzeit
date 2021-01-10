@@ -24,23 +24,23 @@ public class CartesianCoordinateTest {
 
     @Before
     public void setUp() {
-        cartesian1 = new CartesianCoordinate(0.0, 2.0, 0.0);
-        cartesian2 = new CartesianCoordinate(0.0, 4.0, 0.0);
+        cartesian1 = CartesianCoordinate.doGetOrCreateCoordinate(0.0, 2.0, 0.0);
+        cartesian2 = CartesianCoordinate.doGetOrCreateCoordinate(0.0, 4.0, 0.0);
 
-        cartesian3 = new CartesianCoordinate(-2.0, 1.0, 4.0);
-        cartesian4 = new CartesianCoordinate(-4.0, 3.0, 6.0);
+        cartesian3 = CartesianCoordinate.doGetOrCreateCoordinate(-2.0, 1.0, 4.0);
+        cartesian4 = CartesianCoordinate.doGetOrCreateCoordinate(-4.0, 3.0, 6.0);
 
-        cartesian5 = new CartesianCoordinate(0.0, 2.0, 0.0); // identical to coordinate1
+        cartesian5 = CartesianCoordinate.doGetOrCreateCoordinate(0.0, 2.0, 0.0); // identical to coordinate1
 
-        cartesianCoordinate1 = new CartesianCoordinate(3, 4, 5);
-        sphericCoordinate1 = new SphericCoordinate(0.78539816339745, 0.92729521800161, 7.0710678118655);
+        cartesianCoordinate1 = CartesianCoordinate.doGetOrCreateCoordinate(3, 4, 5);
+        sphericCoordinate1 = SphericCoordinate.doGetOrCreateCoordinate(0.78539816339745, 0.92729521800161, 7.0710678118655);
 
         location1 = new Location(CoordinateType.CARTESIAN, cartesian1);
     }
 
     @Test
     public void coordinateIsInstantiatedCorrectly() {
-        CartesianCoordinate cartesian6 = new CartesianCoordinate(6.0, 7.0, 8.0);
+        CartesianCoordinate cartesian6 = CartesianCoordinate.doGetOrCreateCoordinate(6.0, 7.0, 8.0);
         assertTrue(cartesian6 != null);
         assertEquals(cartesian6.getX(), 6.0, 0.0);
         assertEquals(cartesian6.getY(), 7.0, 0.0);
@@ -76,8 +76,8 @@ public class CartesianCoordinateTest {
         assertEquals(cartesianCoordinate1.getCentralAngle(sphericCoordinate1), 0.0, 0.1); 
 
         //angle should be 90 degrees due to given coordinates
-        CartesianCoordinate car1 = new CartesianCoordinate(0, 0, 4); //coordinate on z-axis
-        CartesianCoordinate car2 = new CartesianCoordinate(5, 0, 0); //coordinate on x-axis
+        CartesianCoordinate car1 = CartesianCoordinate.doGetOrCreateCoordinate(0, 0, 4); //coordinate on z-axis
+        CartesianCoordinate car2 = CartesianCoordinate.doGetOrCreateCoordinate(5, 0, 0); //coordinate on x-axis
         double centralAngle1 = car1.getCentralAngle(car2);
         assertEquals(centralAngle1, 90.0, 0.0);
     }
@@ -92,7 +92,7 @@ public class CartesianCoordinateTest {
     public void testAssertClassInvariantMethod() {  
         try
         {
-            new CartesianCoordinate(6.0, Double.NaN, 3.0);
+            CartesianCoordinate.doGetOrCreateCoordinate(6.0, Double.NaN, 3.0);
         }
         catch(Exception ex)
         {

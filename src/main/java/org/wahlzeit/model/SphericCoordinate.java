@@ -3,12 +3,13 @@ package org.wahlzeit.model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class SphericCoordinate extends AbstractCoordinate{
     private final double phi;
     private final double theta;
     private final double radius;
-
+    private static ConcurrentHashMap<Integer, SphericCoordinate> coordinateHashMap = new ConcurrentHashMap<>();
     /**
      * Coordinate constructor implements a new object with given features
      * @param phi phi-value of Coordinate
@@ -16,13 +17,24 @@ public class SphericCoordinate extends AbstractCoordinate{
      * @param radius radius-value of Coordinate
      * @methodtype initialization
      */
-    public SphericCoordinate(double phi, double theta, double radius) {
+    private SphericCoordinate(double phi, double theta, double radius) {
         this.phi = phi;
         this.theta = theta;
         this.radius = radius;
         assertClassInvariant();
     }
 
+
+    public static SphericCoordinate doGetOrCreateCoordinate(double phi, double theta, double radius) {
+        SphericCoordinate coord = new SphericCoordinate(phi, theta, radius);
+        int coordHash = coord.hashCode();
+        synchronized (coordinateHashMap) {
+            if (coordinateHashMap.get(coordHash) != null) {
+                coordinateHashMap.put(coordHash, coord);
+            }
+            return coord;
+        }
+    }
     /**
      * Getter for phi value
      * @return phi
@@ -62,7 +74,7 @@ public class SphericCoordinate extends AbstractCoordinate{
         double x = this.radius * Math.sin(this.phi)*Math.cos(this.theta);
         double y = this.radius * Math.sin(this.phi)*Math.sin(this.theta);
         double z = this.radius * Math.cos(this.phi);
-        CartesianCoordinate coordinate = new CartesianCoordinate(x,y,z);
+        CartesianCoordinate coordinate = CartesianCoordinate.doGetOrCreateCoordinate(x, y, z);
         assertClassInvariant();
         return coordinate;
     }
@@ -92,15 +104,6 @@ public class SphericCoordinate extends AbstractCoordinate{
         rset.updateDouble("coordinate_unit_2", this.theta);
         rset.updateDouble("coordinate_unit_3", this.radius);
         assertClassInvariant();
-    }
-
-    @Override
-    public int hashCode() {
-        assertClassInvariant();
-        assertObjectIsNotNull(this);
-        int hash = Objects.hash(this.radius, this.theta, this.phi);
-        assertClassInvariant();
-        return hash;
     }
 
     @Override

@@ -2,12 +2,13 @@ package org.wahlzeit.model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class CartesianCoordinate extends AbstractCoordinate{
     private final double x;
     private final double y;
     private final double z;
-
+    private static ConcurrentHashMap<Integer, CartesianCoordinate> coordinateHashMap = new ConcurrentHashMap<>();
     /**
      * Coordinate constructor implements a new object with given features
      * @param x x-value of Coordinate
@@ -15,13 +16,23 @@ public class CartesianCoordinate extends AbstractCoordinate{
      * @param z z-value of Coordinate
      * @methodtype initialization
      */
-    public CartesianCoordinate(double x, double y, double z) {
+    private CartesianCoordinate(double x, double y, double z) {
         this.x = x;
         this.y = y;
         this.z = z;
         assertClassInvariant();
     }
 
+    public static CartesianCoordinate doGetOrCreateCoordinate(double x, double y, double z) {
+        CartesianCoordinate coord = new CartesianCoordinate(x, y, z);
+        int coordHash = coord.hashCode();
+        synchronized (coordinateHashMap) {
+            if (coordinateHashMap.get(coordHash) != null) {
+                coordinateHashMap.put(coordHash, coord);
+            }
+            return coord;
+        }
+    }
 
     /**
      * wirtes coordinate details from rset into update object
@@ -93,7 +104,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
             theta = Math.atan(this.y / this.x);
         }
         double phi = Math.atan(Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2))/this.z);
-        SphericCoordinate coordinate = new SphericCoordinate(phi, theta, radius);
+        SphericCoordinate coordinate = SphericCoordinate.doGetOrCreateCoordinate(phi, theta, radius);
         assertClassInvariant();
         return coordinate;
     }
