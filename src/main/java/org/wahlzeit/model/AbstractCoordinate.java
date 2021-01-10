@@ -132,6 +132,7 @@ public abstract class AbstractCoordinate implements Coordinate{
         return hash;
     }
 
+    //checked exception!
     public abstract void writeOn(ResultSet rset) throws SQLException;
 
     /**

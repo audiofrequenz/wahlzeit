@@ -17,6 +17,7 @@ public class Location{
         this.coordinate = coordinate;
     }
 
+    //checked exception
     public void writeOn(ResultSet rset) throws SQLException {
         rset.updateInt("coordinate_type", this.coordinateType.asInt());
         this.coordinate.writeOn(rset);

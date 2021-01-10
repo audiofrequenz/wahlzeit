@@ -4,9 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CartesianCoordinate extends AbstractCoordinate{
-    private double x;
-    private double y;
-    private double z;
+    private final double x;
+    private final double y;
+    private final double z;
 
     /**
      * Coordinate constructor implements a new object with given features
@@ -45,14 +45,6 @@ public class CartesianCoordinate extends AbstractCoordinate{
         return x;
     }
 
-    /**
-     * Setter for x value
-     * @param x value of the x-coordinate in an cartesian coordinate system
-     * @methodtype set
-     */
-    public void setX(double x) {
-        this.x = x;
-    }
 
     /**
      * Getter for y value
@@ -63,14 +55,6 @@ public class CartesianCoordinate extends AbstractCoordinate{
         return y;
     }
 
-    /**
-     * Setter for y value
-     * @param y value of the y-coordinate in an cartesian coordinate system
-     * @methodtype set
-     */
-    public void setY(double y) {
-        this.y = y;
-    }
 
     /**
      * Getter for z value
@@ -81,14 +65,6 @@ public class CartesianCoordinate extends AbstractCoordinate{
         return z;
     }
 
-    /**
-     * Setter for z value
-     * @param z value of the z-coordinate in an cartesian coordinate system
-     * @methodtype set
-     */
-    public void setZ(double z) {
-        this.z = z;
-    }
 
     /**
      * returns coordinate as cartesian coordinate

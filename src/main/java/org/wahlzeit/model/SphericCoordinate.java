@@ -5,9 +5,9 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 public class SphericCoordinate extends AbstractCoordinate{
-    private double phi;
-    private double theta;
-    private double radius;
+    private final double phi;
+    private final double theta;
+    private final double radius;
 
     /**
      * Coordinate constructor implements a new object with given features
@@ -33,15 +33,6 @@ public class SphericCoordinate extends AbstractCoordinate{
     }
 
     /**
-     * Setter for phi value
-     * @param phi value of the phi-coordinate in an cartesian coordinate system
-     * @methodtype set
-     */
-    public void setPhi(double phi) {
-        this.phi = phi;
-    }
-
-    /**
      * Getter for theta value
      * @return theta
      * @methodtype get
@@ -51,30 +42,12 @@ public class SphericCoordinate extends AbstractCoordinate{
     }
 
     /**
-     * Setter for theta value
-     * @param theta value of the theta-coordinate in an cartesian coordinate system
-     * @methodtype set
-     */
-    public void setTheta(double theta) {
-        this.theta = theta;
-    }
-
-    /**
      * Getter for radius value
      * @return radius
      * @methodtype get
      */
     public double getRadius() {
         return radius;
-    }
-
-    /**
-     * Setter for radius value
-     * @param radius value of the x-coordinate in an cartesian coordinate system
-     * @methodtype set
-     */
-    public void setRadius(double radius) {
-        this.radius = radius;
     }
 
     /**
