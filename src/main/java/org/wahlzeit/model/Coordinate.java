@@ -1,8 +1,14 @@
 package org.wahlzeit.model;
 
+import org.wahlzeit.utils.PatternInstance;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@PatternInstance(
+        patternName = "Bridge Pattern",
+        participants = {"Coordinate", "AbstractCoordinate", "SphericCoordinate", "CarthesianCoordinate"}
+)
 public interface Coordinate {
     CartesianCoordinate asCartesianCoordinate();
     double getCartesianDistance(Coordinate coordinate);
