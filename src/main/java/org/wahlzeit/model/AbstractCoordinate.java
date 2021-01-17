@@ -1,5 +1,7 @@
 package org.wahlzeit.model;
 
+import org.wahlzeit.utils.PatternInstance;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
@@ -119,8 +121,6 @@ public abstract class AbstractCoordinate implements Coordinate{
         return x_equals && y_equals && z_equals;
     }
 
-
-    @Override
     public int hashCode() {
         assertClassInvariant();
         assertObjectIsNotNull(this);
@@ -133,6 +133,12 @@ public abstract class AbstractCoordinate implements Coordinate{
     }
 
     //checked exception!
+    @PatternInstance(
+            patternName = "Template Method Pattern",
+            participants = {
+                    "AbstractCoordinate", "CartesianCoordinate", "SphericCoordinate"
+            }
+    )
     public abstract void writeOn(ResultSet rset) throws SQLException;
 
     /**

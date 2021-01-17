@@ -1,10 +1,16 @@
 package org.wahlzeit.model;
 
+import org.wahlzeit.utils.PatternInstance;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
+@PatternInstance(
+        patternName = "Value Object Pattern",
+        participants = {"ValueObject", "AbstractCoordinate"}
+)
 public class SphericCoordinate extends AbstractCoordinate{
     private final double phi;
     private final double theta;

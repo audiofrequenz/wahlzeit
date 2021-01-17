@@ -1,9 +1,15 @@
 package org.wahlzeit.model;
 
+import org.wahlzeit.utils.PatternInstance;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.concurrent.ConcurrentHashMap;
 
+@PatternInstance(
+        patternName = "Value Object Pattern",
+        participants = {"CartesianCoordinate", "AbstractCoordinate"}
+)
 public class CartesianCoordinate extends AbstractCoordinate{
     private final double x;
     private final double y;
