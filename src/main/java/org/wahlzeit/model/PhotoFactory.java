@@ -30,7 +30,7 @@ import org.wahlzeit.utils.PatternInstance;
  * An Abstract Factory for creating photos and related objects.
  */
 @PatternInstance(
-		patternName = "Factory Pattern",
+		patternName = "Abstract Factory Pattern",
 		participants = {
 				"PhotoFactory", "PhotoManager", "UserSession"
 		}
