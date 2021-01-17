@@ -6,6 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 
+@PatternInstance(
+        patternName = "Bridge Pattern",
+        participants = { "Implementor" },
+        participantObjects = {"Coordinate", "AbstractCoordinate", "SphericCoordinate", "CarthesianCoordinate"}
+)
 public abstract class AbstractCoordinate implements Coordinate{
 
     /**
@@ -135,7 +140,8 @@ public abstract class AbstractCoordinate implements Coordinate{
     //checked exception!
     @PatternInstance(
             patternName = "Template Method Pattern",
-            participants = {
+            participants = { "AbstractClass" },
+            participantObjects = {
                     "AbstractCoordinate", "CartesianCoordinate", "SphericCoordinate"
             }
     )

@@ -32,7 +32,8 @@ import org.wahlzeit.utils.PatternInstance;
  */
 @PatternInstance(
 		patternName = "Null Object Pattern",
-		participants = { "NullEmailService", "EmailService" }
+		participants = { "NullClass" },
+		participantObjects = { "NullEmailService", "EmailService" }
 )
 public class NullEmailService implements EmailService {
 

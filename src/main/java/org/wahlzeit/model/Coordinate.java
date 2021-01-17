@@ -7,7 +7,8 @@ import java.sql.SQLException;
 
 @PatternInstance(
         patternName = "Bridge Pattern",
-        participants = {"Coordinate", "AbstractCoordinate", "SphericCoordinate", "CarthesianCoordinate"}
+        participants = { "Abstraction" },
+        participantObjects = {"Coordinate", "AbstractCoordinate", "SphericCoordinate", "CarthesianCoordinate"}
 )
 public interface Coordinate {
     CartesianCoordinate asCartesianCoordinate();

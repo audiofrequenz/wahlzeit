@@ -9,7 +9,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @PatternInstance(
         patternName = "Value Object Pattern",
-        participants = {"ValueObject", "AbstractCoordinate"}
+        participants = { "ValueObject" },
+        participantObjects = {
+                "AbstractCoordinate", "CartesianCoordinate", "SphericCoordinate"
+        }
 )
 public class SphericCoordinate extends AbstractCoordinate{
     private final double phi;
@@ -109,6 +112,13 @@ public class SphericCoordinate extends AbstractCoordinate{
      * @param rset ResultSet containing RodentPhoto information
      * @methodtype command
      */
+    @PatternInstance(
+            patternName = "Template Method Pattern",
+            participants = { "ConcreteClass" },
+            participantObjects = {
+                    "AbstractCoordinate", "CartesianCoordinate", "SphericCoordinate"
+            }
+    )
     public void writeOn(ResultSet rset) throws SQLException {
         assertClassInvariant();
         assertObjectIsNotNull(rset);

@@ -8,7 +8,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @PatternInstance(
         patternName = "Value Object Pattern",
-        participants = {"CartesianCoordinate", "AbstractCoordinate"}
+        participants = { "ValueObject" },
+        participantObjects = {
+                "AbstractCoordinate", "CartesianCoordinate", "SphericCoordinate"
+        }
 )
 public class CartesianCoordinate extends AbstractCoordinate{
     private final double x;
@@ -52,6 +55,13 @@ public class CartesianCoordinate extends AbstractCoordinate{
      * @param rset ResultSet containing RodentPhoto information
      * @methodtype command
      */
+    @PatternInstance(
+            patternName = "Template Method Pattern",
+            participants = { "ConcreteClass" },
+            participantObjects = {
+                    "AbstractCoordinate", "CartesianCoordinate", "SphericCoordinate"
+            }
+    )
     public void writeOn(ResultSet rset) throws SQLException {
         assertClassInvariant();
         rset.updateDouble("coordinate_unit_1", this.x);

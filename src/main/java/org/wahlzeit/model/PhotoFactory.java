@@ -32,7 +32,10 @@ import org.wahlzeit.utils.PatternInstance;
 @PatternInstance(
 		patternName = "Abstract Factory Pattern",
 		participants = {
-				"PhotoFactory", "PhotoManager", "UserSession"
+				"AbstractFactory", "ConcreteFactory"
+		},
+		participantObjects = {
+				"PhotoFactory", "PhotoManager", "UserSession", "Photo"
 		}
 )
 public class PhotoFactory {
@@ -47,9 +50,8 @@ public class PhotoFactory {
 	 */
 	@PatternInstance(
 			patternName = "Singleton Pattern",
-			participants = {
-					"PhotoFactory"
-			}
+			participants = {},
+			participantObjects = { "PhotoFactory" }
 	)
 	public static synchronized PhotoFactory getInstance() {
 		if (instance == null) {
