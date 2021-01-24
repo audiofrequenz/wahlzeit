@@ -11,7 +11,7 @@ public class RodentType {
     private RodentType superType = null;
     private Set<RodentType> subTypes = new HashSet<RodentType>();
     protected int averageWeight;;
-    private String rodentSpecies;
+    protected String rodentSpecies;
 
     public RodentType(String rodentSpecies, int averageWeight) {
         this.averageWeight = averageWeight;
@@ -48,14 +48,15 @@ public class RodentType {
         return false;
     }
 
-    public boolean hasSubType(RodentType rt){
-        //check not null
-
-        if (rt.equals(this))
-            return true;
-
+    public boolean isSubtype(RodentType rt){
+        RodentType curType = this.superType;
+        while (curType != null) {
+            if(curType.equals(rt)) {
+                return true;
+            }
+            curType = curType.getSuperType();
+        }
         return false;
-
     }
 
     public Rodent createInstance(String name) {
@@ -63,9 +64,9 @@ public class RodentType {
     }
 
     public boolean isEqual(RodentType other) {
-        boolean isRodentTypeEqual = this.rodentSpecies.equals(other.rodentSpecies);
-        boolean isNameEqual = averageWeight == other.averageWeight;
-        return isRodentTypeEqual && isNameEqual;
+        boolean isSpeciesEqual = rodentSpecies.equals(other.rodentSpecies);
+        boolean isWeightEqual = averageWeight == other.averageWeight;
+        return isSpeciesEqual && isWeightEqual;
     }
 
     /**

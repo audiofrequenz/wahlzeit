@@ -35,9 +35,9 @@ public class RodentPhotoTest {
         when(mockedResultSet.getDouble("cartesian_x")).thenReturn(5.979821442798164);
         when(mockedResultSet.getDouble("cartesian_x")).thenReturn(8.746107596310631);
         when(mockedResultSet.getInt("coordinate_type")).thenReturn(1);
-        when(mockedResultSet.getString("rodenttype")).thenReturn("Capybara");
-        when(mockedResultSet.getString("family")).thenReturn("Capybara");
-        when(mockedResultSet.getInt("averageweight")).thenReturn(60);
+        when(mockedResultSet.getString("rodentname")).thenReturn("Capybara");
+        when(mockedResultSet.getString("rodentspecies")).thenReturn("Meerschwein");
+        when(mockedResultSet.getInt("averageweight")).thenReturn(57);
         when(mockedResultSet.next()).thenReturn(true).thenReturn(false);
     }
 
@@ -47,15 +47,15 @@ public class RodentPhotoTest {
         assertNotNull(testPhoto);
     }
 
-//    @Test
-//    public void rodentPhotoByResultSetConstructorIsInstantiatedCorrectly() throws SQLException{
-//        RodentPhoto testPhoto = new RodentPhoto(this.mockedResultSet);
-//        Rodent rodent = testPhoto.getRodent();
-//        assertNotNull(rodent);
-//        assertEquals(60, rodent.averageWeight);
-//        assertEquals("Capybara", rodent.rodentType);
-//        assertEquals("Capybara", rodent.family);
-//    }
+    @Test
+    public void rodentPhotoByResultSetConstructorIsInstantiatedCorrectly() throws SQLException{
+        RodentPhoto testPhoto = new RodentPhoto(this.mockedResultSet);
+        Rodent rodent = testPhoto.getRodent();
+        assertNotNull(rodent);
+        assertEquals("Capybara", rodent.name);
+        assertEquals("57", rodent.rodentType.averageWeight);
+        assertEquals("Meerschwein", rodent.rodentType.rodentSpecies);
+    }
 
     @Test
     public void rodentPhotoByIdIsInstantiatedCorrectly(){

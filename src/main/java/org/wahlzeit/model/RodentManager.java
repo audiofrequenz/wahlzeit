@@ -26,11 +26,13 @@ public class RodentManager extends ObjectManager {
     protected RodentType getOrCreateRodentType(String rodentSpecies, int averageWeight) {
         //staticAssertIsValidArgument(carOEMName);
         //staticAssertIsValidArgument(model);
-        int rodentHash = new RodentType(rodentSpecies, averageWeight).hashCode();
+        RodentType newObj = new RodentType(rodentSpecies, averageWeight);
+        int rodentHash = newObj.hashCode();
         if (rodentTypes.get(rodentHash) != null) {
-            return rodentTypes.get(rodentHash);
+            return newObj;
         }
-        return rodentTypes.put(rodentHash, new RodentType(rodentSpecies, averageWeight));
+        rodentTypes.put(rodentHash, newObj);
+        return newObj;
     }
 
     //unnessesarry only there because extends ObjectManager referenced in UML => not needed...
