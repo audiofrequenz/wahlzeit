@@ -17,7 +17,7 @@ public class RodentManager extends ObjectManager {
     }
 
     public Rodent createRodent(RodentType rodentType, String name) {
-        RodentType rt = this.rodentTypes.get(rodentTypes.hashCode());
+        RodentType rt = this.rodentTypes.get(rodentType.hashCode());
         Rodent r = rt.createInstance(name);
         rodents.put(r.hashCode(), r);
         return r;

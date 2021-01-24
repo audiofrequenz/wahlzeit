@@ -31,7 +31,6 @@ public class RodentPhoto extends Photo{
      */
     public RodentPhoto(ResultSet rset) throws SQLException {
         super(rset);
-        readFrom(rset);
     }
 
     /**
@@ -44,7 +43,7 @@ public class RodentPhoto extends Photo{
                 rset.getString("rodentspecies"),
                 rset.getInt("averageweight")
         );
-        rodentManager.createRodent(
+        this.rodent = rodentManager.createRodent(
                 rodentType,
                 rset.getString("rodentname")
         );

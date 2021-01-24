@@ -53,7 +53,7 @@ public class RodentPhotoTest {
         Rodent rodent = testPhoto.getRodent();
         assertNotNull(rodent);
         assertEquals("Capybara", rodent.name);
-        assertEquals("57", rodent.rodentType.averageWeight);
+        assertEquals(57, rodent.getRodentType().getAverageWeight());
         assertEquals("Meerschwein", rodent.rodentType.rodentSpecies);
     }
 

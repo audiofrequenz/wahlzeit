@@ -11,6 +11,15 @@ public class RodentType {
     private RodentType superType = null;
     private Set<RodentType> subTypes = new HashSet<RodentType>();
     protected int averageWeight;;
+
+    public int getAverageWeight() {
+        return averageWeight;
+    }
+
+    public String getRodentSpecies() {
+        return rodentSpecies;
+    }
+
     protected String rodentSpecies;
 
     public RodentType(String rodentSpecies, int averageWeight) {
