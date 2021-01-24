@@ -3,9 +3,10 @@ package org.wahlzeit.model;
 import java.util.Objects;
 
 public class Rodent {
-    protected String rodentType;
-    protected String family;
-    protected int averageWeight;
+    protected String name;
+
+    protected RodentType rodentType;
+
 
     /**
      * RodentPhoto constructor implements a new object with given features
@@ -14,10 +15,22 @@ public class Rodent {
      * @param averageWeight int representing average Weight of Rodent
      * @methodtype initialization
      */
-    public Rodent(String rodentType, String family, int averageWeight){
+    public Rodent(RodentType rodentType){
+        //assert check not null, string not blank
         this.rodentType = rodentType;
-        this.family = family;
-        this.averageWeight = averageWeight;
+    }
+
+    /**
+     * RodentPhoto constructor implements a new object with given features
+     * @param rodentType String containing type of Rodent
+     * @param family String containing family of Rodent
+     * @param averageWeight int representing average Weight of Rodent
+     * @methodtype initialization
+     */
+    public Rodent(RodentType rodentType, String name){
+        //assert check not null, string not blank
+        this.rodentType = rodentType;
+        this.name = name;
     }
 
     /**
@@ -25,7 +38,7 @@ public class Rodent {
      * @return rodentType String
      * @methodtype get
      */
-    public String getRodentType() {
+    public RodentType getRodentType() {
         return rodentType;
     }
 
@@ -34,51 +47,15 @@ public class Rodent {
      * @param rodentType string
      * @methodtype set
      */
-    public void setRodentType(String rodentType) {
+    public void setRodentType(RodentType rodentType) {
         this.rodentType = rodentType;
     }
 
-    /**
-     * Getter for family of rodent
-     * @return family String
-     * @methodtype get
-     */
-    public String getFamily() {
-        return family;
-    }
-
-    /**
-     * Setter for family
-     * @param family Rodent string
-     * @methodtype set
-     */
-    public void setFamily(String family) {
-        this.family = family;
-    }
-
-    /**
-     * Getter for average weight of rodent
-     * @return averageWeight Int
-     * @methodtype get
-     */
-    public int getAverageWeight() {
-        return averageWeight;
-    }
-
-    /**
-     * Setter for averageWeight
-     * @param averageWeight int
-     * @methodtype set
-     */
-    public void setAverageWeight(int averageWeight) {
-        this.averageWeight = averageWeight;
-    }
 
     public boolean isEqual(Rodent other) {
         boolean isRodentTypeEqual = this.rodentType.equals(other.rodentType);
-        boolean isFamilyEqual = this.family.equals(other.family);;
-        boolean isAverageWeightEqual = this.averageWeight == other.averageWeight;
-        return isRodentTypeEqual && isFamilyEqual && isAverageWeightEqual;
+        boolean isNameEqual = this.name.equals(other.name);
+        return isRodentTypeEqual && isNameEqual;
     }
 
     /**
@@ -99,6 +76,6 @@ public class Rodent {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.rodentType, this.family, this.averageWeight);
+        return Objects.hash(this.rodentType, this.name);
     }
 }

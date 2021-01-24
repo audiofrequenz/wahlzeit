@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public class RodentPhoto extends Photo{
     private Rodent rodent;
-
+    private static RodentManager rodentManager = RodentManager.getInstance();
     /**
      * RodentPhoto constructor implements a new object
      * @methodtype initialization
@@ -40,10 +40,13 @@ public class RodentPhoto extends Photo{
      * @methodtype command
      */
     public void readFrom(ResultSet rset) throws SQLException {
-        this.rodent = new Rodent(
-                rset.getString("rodenttype"),
-                rset.getString("family"),
+        RodentType rodentType = rodentManager.getOrCreateRodentType(
+                rset.getString("rodentspecies"),
                 rset.getInt("averageweight")
+        );
+        rodentManager.createRodent(
+                rodentType,
+                rset.getString("rodentname")
         );
         super.readFrom(rset);
     }
@@ -54,8 +57,8 @@ public class RodentPhoto extends Photo{
      * @methodtype command
      */
     public void writeOn(ResultSet rset) throws SQLException {
-        rset.updateString("rodenttype", "best one");
-        rset.updateString("family", "Capybara");
+        rset.updateString("rodentspecies", "Meerschwein");
+        rset.updateString("rodentname", "Capybara");
         rset.updateInt("averageweight", (int)(Math.random()*100));
         super.writeOn(rset);
     }

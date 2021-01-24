@@ -34,8 +34,8 @@ CREATE TABLE photos (
 	coordinate_unit_1 double precision,
 	coordinate_unit_2 double precision,
 	coordinate_unit_3 double precision,
-    rodentType text,
-	family text,
+    rodentName text,
+	rodentSpecies text,
 	averageWeight integer
 );
 

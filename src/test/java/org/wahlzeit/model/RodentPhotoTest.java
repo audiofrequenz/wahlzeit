@@ -47,15 +47,15 @@ public class RodentPhotoTest {
         assertNotNull(testPhoto);
     }
 
-    @Test
-    public void rodentPhotoByResultSetConstructorIsInstantiatedCorrectly() throws SQLException{
-        RodentPhoto testPhoto = new RodentPhoto(this.mockedResultSet);
-        Rodent rodent = testPhoto.getRodent();
-        assertNotNull(rodent);
-        assertEquals(60, rodent.averageWeight);
-        assertEquals("Capybara", rodent.rodentType);
-        assertEquals("Capybara", rodent.family);
-    }
+//    @Test
+//    public void rodentPhotoByResultSetConstructorIsInstantiatedCorrectly() throws SQLException{
+//        RodentPhoto testPhoto = new RodentPhoto(this.mockedResultSet);
+//        Rodent rodent = testPhoto.getRodent();
+//        assertNotNull(rodent);
+//        assertEquals(60, rodent.averageWeight);
+//        assertEquals("Capybara", rodent.rodentType);
+//        assertEquals("Capybara", rodent.family);
+//    }
 
     @Test
     public void rodentPhotoByIdIsInstantiatedCorrectly(){
