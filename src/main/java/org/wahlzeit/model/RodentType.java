@@ -7,6 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
+/*
+* 1. RodentManager.getOrCreateRodentType(rodentSpecies, averageWeight)
+* 2. RodentType.RodentType(rodentSpecies, averageWeight)
+* */
 public class RodentType {
     private RodentType superType = null;
     private Set<RodentType> subTypes = new HashSet<RodentType>();

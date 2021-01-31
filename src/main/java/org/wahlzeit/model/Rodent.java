@@ -2,6 +2,12 @@ package org.wahlzeit.model;
 
 import java.util.Objects;
 
+
+/*
+* 1. RodentManager.createRodent(rodentType, name)
+* 2. RodentType.createInstance(name)
+* 3. Rodent.Rodent(rodentType, name)
+* */
 public class Rodent {
     protected String name;
 

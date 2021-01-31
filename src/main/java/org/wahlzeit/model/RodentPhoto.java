@@ -4,6 +4,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 
+/*
+* 1. RodentPhotoManager.createObject(rset)
+* 2. RodentPhotoFactory.getInstance()
+* 3. RodentPhotoFactory.createRodentPhoto(rset)
+* 4. RodentPhoto.RodentPhoto(rset)
+* 5. Photo.Photo(rset)
+* 6. Photo.randomizerLocation()
+* 7. Photo.readFrom(rset)
+* 8. Cartesian- or SphericCoordinate.doGetOrCreateCoordinate(coordinate1, coordinate2, coordinate3)
+* */
 public class RodentPhoto extends Photo{
     private Rodent rodent;
     private static RodentManager rodentManager = RodentManager.getInstance();
